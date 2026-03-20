@@ -662,6 +662,13 @@ section { padding: 90px 0; }
   border-radius: 6px;
   cursor: pointer;
 }
+.submit-btn:hover{
+  background-color: #ce9805;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+}
 
 /* ============================================
    FOOTER
@@ -782,6 +789,29 @@ section { padding: 90px 0; }
   transition: var(--transition);
   line-height: 1;
 }
+/* Make popup scrollable */
+.popup-box {
+  max-height: 90vh;        
+  overflow-y: auto;        
+  width: 100%;
+  max-width: 500px;
+
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #0b132b;
+  position: relative;
+}
+
+/* Optional: smooth scrollbar */
+.popup-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.popup-box::-webkit-scrollbar-thumb {
+  background: #00d4ff;
+  border-radius: 10px;
+}
+
 .popup-close:hover { background: rgba(255,255,255,0.15); color: var(--white); }
 .popup-top { margin-bottom: 1.8rem; }
 .popup-top .section-tag { margin-bottom: 0.8rem; }
