@@ -921,6 +921,28 @@ section { padding: 90px 0; }
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.8rem;
 }
+/* Gallery Section */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
 .team-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
