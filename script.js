@@ -1,0 +1,247 @@
+/* ============================================
+   DICS Computer Education - Main JavaScript
+   ============================================ */
+
+/* ---- Popup Enquiry Form ---- */
+(function () {
+  const overlay = document.getElementById('popupOverlay');
+  const closeBtn = document.getElementById('popupClose');
+  const popupForm = document.getElementById('popupForm');
+
+  if (overlay) {
+    if (!sessionStorage.getItem('popupDismissed')) {
+      setTimeout(() => {
+        overlay.classList.remove('hidden');
+      }, 1800);
+    }
+
+    closeBtn && closeBtn.addEventListener('click', () => {
+      overlay.classList.add('hidden');
+      sessionStorage.setItem('popupDismissed', '1');
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.add('hidden');
+        sessionStorage.setItem('popupDismissed', '1');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+        overlay.classList.add('hidden');
+        sessionStorage.setItem('popupDismissed', '1');
+      }
+    });
+
+    if (popupForm) {
+      popupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (validateForm(popupForm)) {
+          const btn = popupForm.querySelector('button[type="submit"]');
+          btn.textContent = '✓ Enquiry Submitted!';
+          btn.style.background = '#22c55e';
+          setTimeout(() => {
+            overlay.classList.add('hidden');
+            sessionStorage.setItem('popupDismissed', '1');
+          }, 1500);
+        }
+      });
+    }
+  }
+})();
+
+/* ---- Navbar: Hamburger Full Sidebar ---- */
+(function () {
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  const navbar    = document.querySelector('.navbar');
+
+  if (!hamburger || !navLinks) return;
+
+  // Inject a contact/footer strip at the bottom of the sidebar
+  const sidebarFooter = document.createElement('div');
+  sidebarFooter.className = 'nav-sidebar-footer';
+  // sidebarFooter.innerHTML = `
+  //   <strong>📍 Janakpuri &amp; Punjabi Bagh</strong>
+  //   <span>📞 +91 98765 43210</span>
+  //   <span>✉️ admissions@nexusinstitute.in</span>
+  //   <span>🕐 Mon–Sat: 9 AM – 7 PM</span>
+  // `;
+  navLinks.appendChild(sidebarFooter);
+
+  function openMenu() {
+    hamburger.classList.add('open');
+    navLinks.classList.add('open');
+    navbar && navbar.classList.add('nav-expanded');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+    navbar && navbar.classList.remove('nav-expanded');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Close when any nav link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) closeMenu();
+  });
+
+  // Close if resized above mobile breakpoint
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 820 && navLinks.classList.contains('open')) closeMenu();
+  });
+
+  // Active nav link highlight based on current page
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === currentPage) link.classList.add('active');
+  });
+})();
+
+/* ---- Navbar: Scroll Shadow ---- */
+window.addEventListener('scroll', () => {
+  const navbar = document.querySelector('.navbar');
+  if (navbar) {
+    navbar.style.boxShadow = window.scrollY > 50
+      ? '0 4px 30px rgba(0,0,0,0.3)'
+      : 'none';
+  }
+});
+
+/* ---- Countdown Timer ---- */
+(function () {
+  const timerEl = document.getElementById('countdown');
+  if (!timerEl) return;
+
+  let deadline = localStorage.getItem('nexus_deadline');
+  if (!deadline || Date.now() > Number(deadline)) {
+    deadline = Date.now() + 3 * 24 * 60 * 60 * 1000;
+    localStorage.setItem('nexus_deadline', deadline);
+  }
+
+  function updateTimer() {
+    const diff = Math.max(0, Number(deadline) - Date.now());
+    const pad  = n => String(n).padStart(2, '0');
+
+    const d = document.getElementById('t-days');
+    const h = document.getElementById('t-hours');
+    const m = document.getElementById('t-mins');
+    const s = document.getElementById('t-secs');
+
+    if (d) d.textContent = pad(Math.floor(diff / 86400000));
+    if (h) h.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    if (m) m.textContent = pad(Math.floor((diff % 3600000) / 60000));
+    if (s) s.textContent = pad(Math.floor((diff % 60000) / 1000));
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+})();
+
+/* ---- Form Validation (shared) ---- */
+function validateForm(form) {
+  let valid = true;
+
+  form.querySelectorAll('.form-error').forEach(el => el.style.display = 'none');
+  form.querySelectorAll('input, select, textarea').forEach(el => {
+    el.style.borderColor = '';
+  });
+
+  form.querySelectorAll('[required]').forEach(field => {
+    const val   = field.value.trim();
+    const errEl = form.querySelector(`[data-error="${field.name}"]`);
+
+    if (!val) {
+      markInvalid(field, errEl, 'This field is required.');
+      valid = false;
+    } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      markInvalid(field, errEl, 'Enter a valid email address.');
+      valid = false;
+    } else if (field.type === 'tel' && !/^[0-9+\-\s]{7,15}$/.test(val)) {
+      markInvalid(field, errEl, 'Enter a valid phone number.');
+      valid = false;
+    }
+  });
+
+  return valid;
+}
+
+function markInvalid(field, errEl, msg) {
+  field.style.borderColor = '#ff6b6b';
+  if (errEl) {
+    errEl.textContent = msg;
+    errEl.style.display = 'block';
+  }
+}
+
+/* ---- Contact Form Submission ---- */
+(function () {
+  const contactForm = document.getElementById('contactForm');
+  if (!contactForm) return;
+
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (validateForm(contactForm)) {
+      const success = document.getElementById('contactSuccess');
+      const btn     = contactForm.querySelector('button[type="submit"]');
+      if (success) {
+        success.style.display = 'block';
+        btn.disabled    = true;
+        btn.textContent = '✓ Message Sent!';
+        contactForm.reset();
+        setTimeout(() => {
+          success.style.display = 'none';
+          btn.disabled    = false;
+          btn.textContent = 'Send Message';
+        }, 4000);
+      }
+    }
+  });
+})();
+
+/* ---- Smooth Scroll for anchor links ---- */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ---- Animate elements on scroll (IntersectionObserver) ---- */
+(function () {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity   = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(
+    '.course-card, .blog-card, .value-card, .team-card, .feature-item'
+  ).forEach(el => {
+    el.style.opacity    = '0';
+    el.style.transform  = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+})();

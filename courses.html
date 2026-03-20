@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DICS Computer Education</title>
+  <link rel="stylesheet" href="style.css" />
+   <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+<rect width='100' height='64' rx='12' fill='%2300d4ff'/>
+<text x='5' y='42' font-size='22' font-weight='bold' fill='%230a0f2c'>DICS</text>
+</svg>"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  <style>
+    /* Courses Page Filters */
+    .filter-bar {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+    .filter-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--grey);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--cyan);
+      color: var(--navy);
+      border-color: var(--cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        DICS
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="courses.html" class="active">Courses</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html" class="btn-enroll">Enroll Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>›</span> <span>Courses</span>
+      </div>
+      <span class="section-tag">Our Programs</span>
+      <h1>All Courses</h1>
+      <p>Choose from 15+ industry-aligned courses designed by experts to make you job-ready.</p>
+    </div>
+  </div>
+
+  <!-- Courses Section -->
+  <section class="courses-section" style="background:var(--navy);">
+    <div class="container">
+
+      <!-- Filter Buttons -->
+      <div class="filter-bar">
+        <button class="filter-btn active">All Courses</button>
+        <button class="filter-btn">Data & Analytics</button>
+        <button class="filter-btn">Programming</button>
+        <button class="filter-btn">Web Dev</button>
+        <button class="filter-btn">Design</button>
+        <button class="filter-btn">Office Tools</button>
+      </div>
+
+      <div class="courses-grid">
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/data-analytics/400/250" alt="Data Analytics" loading="lazy" />
+            <span class="course-badge">Popular</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 3 Months</span><span>👥 Beginner</span></div>
+            <h3>Data Analytics</h3>
+            <p>Learn Excel, SQL, Power BI & Tableau to analyze data and create business dashboards.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹14,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.8 (340)</div>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/data-science/400/250" alt="Data Science" loading="lazy" />
+            <span class="course-badge">Trending</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 6 Months</span><span>👥 Intermediate</span></div>
+            <h3>Data Science</h3>
+            <p>Python, Machine Learning, Deep Learning, NLP and real-world data projects.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹24,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.9 (520)</div>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/webdev/400/250" alt="Web Development" loading="lazy" />
+            <span class="course-badge">New</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 4 Months</span><span>👥 Beginner</span></div>
+            <h3>Web Development</h3>
+            <p>HTML, CSS, JavaScript, React & Node.js. Build full-stack web apps from scratch.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹19,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.7 (410)</div>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/python-prog/400/250" alt="Python Programming" loading="lazy" />
+            <span class="course-badge">Bestseller</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 2 Months</span><span>👥 Beginner</span></div>
+            <h3>Python Programming</h3>
+            <p>Core syntax, OOP, file handling, automation scripts, and hands-on mini-projects.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹9,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.8 (680)</div>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/graphic-design/400/250" alt="Graphic Design" loading="lazy" />
+            <span class="course-badge">Creative</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 3 Months</span><span>👥 Beginner</span></div>
+            <h3>Graphic Design</h3>
+            <p>Photoshop, Illustrator, CorelDRAW and Canva for professional design work.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹12,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.6 (290)</div>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/ms-office/400/250" alt="MS Office" loading="lazy" />
+            <span class="course-badge">Essential</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 1 Month</span><span>👥 Beginner</span></div>
+            <h3>Advanced MS Office</h3>
+            <p>Excel, Word, PowerPoint, and Outlook mastery for professional productivity.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹4,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.7 (850)</div>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/cyber-security/400/250" alt="Cyber Security" loading="lazy" />
+            <span class="course-badge">Advanced</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 4 Months</span><span>👥 Intermediate</span></div>
+            <h3>Cyber Security</h3>
+            <p>Ethical hacking, network security, firewalls and real-world vulnerability assessment.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹22,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.8 (175)</div>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-img">
+            <img src="https://picsum.photos/seed/digital-marketing/400/250" alt="Digital Marketing" loading="lazy" />
+            <span class="course-badge">In Demand</span>
+          </div>
+          <div class="course-body">
+            <div class="course-meta"><span>📅 2 Months</span><span>👥 Beginner</span></div>
+            <h3>Digital Marketing</h3>
+            <p>SEO, Social Media, Google Ads, email marketing and content strategy.</p>
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Enroll Now →</a>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹11,999 <span>/ course</span></div>
+            <div style="font-size:0.82rem;color:var(--grey);">⭐ 4.6 (320)</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Countdown -->
+  <div class="countdown-section" id="countdown">
+    <div class="container countdown-inner">
+      <div class="countdown-text">
+        <div class="seats-badge">⚡ Limited Seats Offer</div>
+        <h3>Enroll Before Offer Expires!</h3>
+        <p>Get 30% off on all courses. Only a few seats remaining.</p>
+      </div>
+      <div class="timer-boxes">
+        <div class="timer-box"><div class="timer-num" id="t-days">00</div><div class="timer-label">Days</div></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-box"><div class="timer-num" id="t-hours">00</div><div class="timer-label">Hours</div></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-box"><div class="timer-num" id="t-mins">00</div><div class="timer-label">Mins</div></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-box"><div class="timer-num" id="t-secs">00</div><div class="timer-label">Secs</div></div>
+      </div>
+      <a href="contact.html" class="btn btn-gold">Claim Offer Now →</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo"><div class="logo-icon">N</div>Nexus<span>Institute</span></a>
+          <p>Delhi's premier computer education institute, shaping the next generation of tech professionals since 2010.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">f</a>
+            <a href="#" class="social-link">in</a>
+            <a href="#" class="social-link">tw</a>
+            <a href="#" class="social-link">li</a>
+            <a href="#" class="social-link">yt</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">All Courses</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Courses</h4>
+          <ul>
+            <li><a href="courses.html">Data Analytics</a></li>
+            <li><a href="courses.html">Data Science</a></li>
+            <li><a href="courses.html">Web Development</a></li>
+            <li><a href="courses.html">Python Programming</a></li>
+            <li><a href="courses.html">Graphic Design</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul class="footer-contact">
+            <li><span>📍</span><span>B-12, Sector 18, Connaught Place, New Delhi – 110001</span></li>
+            <li><span>📞</span><span>+91 98765 43210</span></li>
+            <li><span>✉️</span><span>admissions@nexusinstitute.in</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;width:100%;">
+        <span>© 2025 Nexus Institute. All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Popup -->
+  <div class="popup-overlay hidden" id="popupOverlay" role="dialog" aria-modal="true">
+    <div class="popup-box">
+      <button class="popup-close" id="popupClose">✕</button>
+      <div class="popup-top">
+        <span class="section-tag">🎓 Free Counselling</span>
+        <h2>Book a Free Demo Class</h2>
+        <p>Fill in your details and our counsellor will call you within 2 hours.</p>
+      </div>
+      <form id="popupForm" novalidate>
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" name="name" placeholder="Your full name" required />
+          <span class="form-error" data-error="name"></span>
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required />
+          <span class="form-error" data-error="phone"></span>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" placeholder="you@email.com" required />
+          <span class="form-error" data-error="email"></span>
+        </div>
+        <div class="form-group">
+          <label>Course Interested In *</label>
+          <select name="course" required>
+            <option value="">Select a course...</option>
+            <option>Data Analytics</option>
+            <option>Data Science</option>
+            <option>Web Development</option>
+            <option>Python Programming</option>
+            <option>Other</option>
+          </select>
+          <span class="form-error" data-error="course"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.9rem;margin-top:0.5rem;">
+          Submit Enquiry →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/919876543210?text=Hi%20Nexus%20Institute" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <span class="wa-pulse"></span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span>Chat with Us</span>
+  </a>
+
+  <script src="script.js"></script>
+  <script>
+    // Filter buttons interaction
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
