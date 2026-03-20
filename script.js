@@ -3,37 +3,86 @@
    ============================================ */
 
 /* ---- Popup Enquiry Form ---- */
+// (function () {
+//   const overlay = document.getElementById('popupOverlay');
+//   const closeBtn = document.getElementById('popupClose');
+//   const popupForm = document.getElementById('popupForm');
+
+//   if (overlay) {
+//     if (!sessionStorage.getItem('popupDismissed')) {
+//       setTimeout(() => {
+//         overlay.classList.remove('hidden');
+//       }, 1800);
+//     }
+
+//     closeBtn && closeBtn.addEventListener('click', () => {
+//       overlay.classList.add('hidden');
+//       sessionStorage.setItem('popupDismissed', '1');
+//     });
+
+//     overlay.addEventListener('click', (e) => {
+//       if (e.target === overlay) {
+//         overlay.classList.add('hidden');
+//         sessionStorage.setItem('popupDismissed', '1');
+//       }
+//     });
+
+//     document.addEventListener('keydown', (e) => {
+//       if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+//         overlay.classList.add('hidden');
+//         sessionStorage.setItem('popupDismissed', '1');
+//       }
+//     });
+
+//     if (popupForm) {
+//       popupForm.addEventListener('submit', (e) => {
+//         e.preventDefault();
+//         if (validateForm(popupForm)) {
+//           const btn = popupForm.querySelector('button[type="submit"]');
+//           btn.textContent = '✓ Enquiry Submitted!';
+//           btn.style.background = '#22c55e';
+//           setTimeout(() => {
+//             overlay.classList.add('hidden');
+//             sessionStorage.setItem('popupDismissed', '1');
+//           }, 1500);
+//         }
+//       });
+//     }
+//   }
+// })();
+// new -
+/* ---- Popup Enquiry Form (Always Show) ---- */
 (function () {
   const overlay = document.getElementById('popupOverlay');
   const closeBtn = document.getElementById('popupClose');
   const popupForm = document.getElementById('popupForm');
 
   if (overlay) {
-    if (!sessionStorage.getItem('popupDismissed')) {
-      setTimeout(() => {
-        overlay.classList.remove('hidden');
-      }, 1800);
-    }
+    // Always show popup after delay
+    setTimeout(() => {
+      overlay.classList.remove('hidden');
+    }, 1800);
 
+    // Close button
     closeBtn && closeBtn.addEventListener('click', () => {
       overlay.classList.add('hidden');
-      sessionStorage.setItem('popupDismissed', '1');
     });
 
+    // Click outside to close
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
         overlay.classList.add('hidden');
-        sessionStorage.setItem('popupDismissed', '1');
       }
     });
 
+    // ESC key to close
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
         overlay.classList.add('hidden');
-        sessionStorage.setItem('popupDismissed', '1');
       }
     });
 
+    // Form submit
     if (popupForm) {
       popupForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -41,9 +90,9 @@
           const btn = popupForm.querySelector('button[type="submit"]');
           btn.textContent = '✓ Enquiry Submitted!';
           btn.style.background = '#22c55e';
+
           setTimeout(() => {
             overlay.classList.add('hidden');
-            sessionStorage.setItem('popupDismissed', '1');
           }, 1500);
         }
       });
