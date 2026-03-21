@@ -1189,3 +1189,30 @@ section { padding: 90px 0; }
     padding: 1.5rem;
   }
 }
+
+/* Popup Box Responsive */
+
+/* Small devices (mobile) */
+@media (max-width: 480px) {
+  .popup-box {
+    width: 95%;
+    max-height: 85vh;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-box {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .popup-box {
+    max-width: 500px;
+  }
+}
