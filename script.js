@@ -294,3 +294,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     observer.observe(el);
   });
 })();
+const searchInput = document.getElementById("courseSearch");
+const courses = document.querySelectorAll(".course-card");
+
+searchInput.addEventListener("keyup", function () {
+  const value = this.value.toLowerCase();
+
+  courses.forEach(course => {
+    const text = course.textContent.toLowerCase();
+
+    if (text.includes(value)) {
+      course.style.display = "block";
+    } else {
+      course.style.display = "none";
+    }
+  });
+});
