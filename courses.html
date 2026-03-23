@@ -90,7 +90,7 @@
   />
   <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(255, 255, 255)" d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"/></svg></span>
 </div>
-
+</div>
 
   <!-- Courses Section -->
   <section class="courses-section" style="background:var(--navy);">
@@ -327,57 +327,91 @@ Learn Programming, Database & Web Development.</p>
   </div>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="index.html" class="nav-logo">DICS<p>Computer Education</p></a>
-          <p>Delhi's premier computer education institute, shaping the next generation of tech professionals since 2010.</p>
-          <div class="social-links">
-            <a href="#" class="social-link">f</a>
-            <a href="#" class="social-link">in</a>
-            <a href="#" class="social-link">tw</a>
-            <a href="#" class="social-link">li</a>
-            <a href="#" class="social-link">yt</a>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Brand -->
+          <div class="footer-brand">
+            <a href="index.html" class="nav-logo">
+              <!-- <div class="logo-icon">DICS</div> -->
+              DICS
+              <p>Computer Education</p>
+            </a>
+            <p>
+              Delhi's premier computer education institute, shaping the next
+              generation of tech professionals since 2010.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="Facebook">f</a>
+              <a href="#" class="social-link" aria-label="Instagram">in</a>
+              <a href="#" class="social-link" aria-label="Twitter">tw</a>
+              <a href="#" class="social-link" aria-label="LinkedIn">li</a>
+              <a href="#" class="social-link" aria-label="YouTube">yt</a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="courses.html">All Courses</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Courses -->
+          <div class="footer-col">
+            <h4>Our Courses</h4>
+            <ul>
+              <li><a href="courses.html">Data Analytics</a></li>
+              <li><a href="courses.html">Data Science</a></li>
+              <li><a href="courses.html">Web Development</a></li>
+              <li><a href="courses.html">Python Programming</a></li>
+              <li><a href="courses.html">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="footer-col">
+            <h4>Contact Us</h4>
+            <ul class="footer-contact">
+              <li>
+                <span>📍</span
+                ><span
+                  >B-12, Sector 18, Connaught Place, New Delhi – 110001</span
+                >
+              </li>
+              <li><span>📞</span><span>+91 9310267583</span></li>
+              <li><span>✉️</span><span>shubhamcodes@gmail.com</span></li>
+              <li><span>🕐</span><span>Mon–Sat: 9 AM – 6 PM</span></li>
+            </ul>
           </div>
         </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="courses.html">All Courses</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Our Courses</h4>
-          <ul>
-            <li><a href="courses.html">Data Analytics</a></li>
-            <li><a href="courses.html">Data Science</a></li>
-            <li><a href="courses.html">Web Development</a></li>
-            <li><a href="courses.html">Python Programming</a></li>
-            <li><a href="courses.html">Graphic Design</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contact Us</h4>
-          <ul class="footer-contact">
-            <li><span>📍</span><span>B-12, Sector 18, Connaught Place, New Delhi – 110001</span></li>
-            <li><span>📞</span><span>+91 9310267583</span></li>
-            <li><span>✉️</span><span>shubhamcodes03@gmail.com</span></li>
-          </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <div
+          class="container"
+          style="
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            width: 100%;
+          "
+        >
+          <span>© 2026 DICS Computer Education. All rights reserved.</span>
+          <span
+            ><a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a></span
+          >
         </div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;width:100%;">
-        <span>© 2026 DICS Computer Education. All rights reserved.</span>
-        <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a></span>
-      </div>
-    </div>
-  </footer>
+    </footer>
+
+
 
   <!-- Popup -->
   <!-- <div class="popup-overlay hidden" id="popupOverlay" role="dialog" aria-modal="true">
