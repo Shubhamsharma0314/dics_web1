@@ -285,25 +285,68 @@ function markInvalid(field, errEl, msg) {
 
 /* ---- Contact Form Submission ---- */
 (function () {
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyT0bLGrfLHKw1gJNkMqWhHUeugXRCfelVj2bd7N63-MYUhtonnKW4sq8oNHEsuV1A/exec"; // ← Same URL as your popup
+
   const contactForm = document.getElementById('contactForm');
   if (!contactForm) return;
 
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (validateForm(contactForm)) {
-      const success = document.getElementById('contactSuccess');
-      const btn     = contactForm.querySelector('button[type="submit"]');
-      if (success) {
-        success.style.display = 'block';
-        btn.disabled    = true;
-        btn.textContent = '✓ Message Sent!';
-        contactForm.reset();
-        setTimeout(() => {
-          success.style.display = 'none';
-          btn.disabled    = false;
-          btn.textContent = 'Send Message';
-        }, 4000);
-      }
+
+    if (!validateForm(contactForm)) return;
+
+    const success     = document.getElementById('contactSuccess');
+    const btn         = contactForm.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+
+    // --- Collect form fields ---
+    // Adjust selectors to match your actual input name attributes
+    const formData = {
+      name:              contactForm.querySelector('[name="name"]')?.value.trim()    || '',
+      email:             contactForm.querySelector('[name="email"]')?.value.trim()   || '',
+      phone:             contactForm.querySelector('[name="phone"]')?.value.trim()   || '',
+      course_interested: contactForm.querySelector('[name="course"]')?.value.trim()  || '',
+      branch:            contactForm.querySelector('[name="branch"]')?.value.trim()  || '',
+      // message:           contactForm.querySelector('[name="message"]')?.value.trim() || '',
+    };
+
+    // --- Loading state ---
+    btn.textContent = 'Sending...';
+    btn.disabled    = true;
+    btn.style.background = '#f59e0b';
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method:  'POST',
+        mode:    'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(formData),
+      });
+
+      // --- Success ---
+      btn.textContent      = '✓ Message Sent!';
+      btn.style.background = '#22c55e';
+      if (success) success.style.display = 'block';
+      contactForm.reset();
+
+      setTimeout(() => {
+        btn.disabled         = false;
+        btn.textContent      = originalText;
+        btn.style.background = '';
+        if (success) success.style.display = 'none';
+      }, 4000);
+
+    } catch (error) {
+
+      // --- Error ---
+      btn.textContent      = '✗ Failed. Try Again.';
+      btn.style.background = '#ef4444';
+      btn.disabled         = false;
+
+      setTimeout(() => {
+        btn.textContent      = originalText;
+        btn.style.background = '';
+      }, 2500);
     }
   });
 })();

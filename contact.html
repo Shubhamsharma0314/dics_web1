@@ -159,52 +159,86 @@
 
       <!-- Form -->
       <div class="contact-form-wrap">
-        <h3>Send Us a Message</h3>
-        <form id="contactForm" novalidate>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="c-name">Full Name *</label>
-              <input type="text" id="c-name" name="name" placeholder="Your full name" required />
-              <span class="form-error" data-error="name"></span>
+          <h3>Send Us a Message</h3>
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-name">Full Name *</label>
+                <input
+                  type="text"
+                  id="c-name"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                />
+                <span class="form-error" data-error="name"></span>
+              </div>
+              <div class="form-group">
+                <label for="c-phone">Phone Number *</label>
+                <input
+                  type="tel"
+                  id="c-phone"
+                  name="phone"
+                  placeholder="+91 XXXXX XXXXX"
+                  required
+                />
+                <span class="form-error" data-error="phone"></span>
+              </div>
             </div>
             <div class="form-group">
-              <label for="c-phone">Phone Number *</label>
-              <input type="tel" id="c-phone" name="phone" placeholder="+91 XXXXX XXXXX" required />
-              <span class="form-error" data-error="phone"></span>
+              <label for="c-email">Email Address *</label>
+              <input
+                type="email"
+                id="c-email"
+                name="email"
+                placeholder="you@email.com"
+                required
+              />
+              <span class="form-error" data-error="email"></span>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="c-email">Email Address *</label>
-            <input type="email" id="c-email" name="email" placeholder="you@email.com" required />
-            <span class="form-error" data-error="email"></span>
-          </div>
-          <div class="form-group">
-            <label for="c-course">Course Interested In</label>
-            <select id="c-course" name="course">
-              <option value="">Select a course...</option>
-              <option>Data Analytics</option>
-              <option>Data Science</option>
-              <option>Web Development</option>
-              <option>Python Programming</option>
-              <option>Graphic Design</option>
-              <option>Cyber Security</option>
-              <option>Digital Marketing</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="c-msg">Message *</label>
-            <textarea id="c-msg" name="message" placeholder="Tell us how we can help..." required></textarea>
-            <span class="form-error" data-error="message"></span>
-          </div>
-          <button type="submit" class="submit-btn btn-primary" style="width:100%;justify-content:center;padding:0.9rem;">
-            Send Message →
-          </button>
-          <div class="form-success" id="contactSuccess">
-            ✅ Thank you! We'll get back to you within 2 hours.
-          </div>
-        </form>
-
+            <div class="form-group">
+              <label for="c-course">Course Interested In</label>
+              <select id="c-course" name="course">
+                <option value="">Select a course...</option>
+                <option>Data Analytics</option>
+                <option>Data Science</option>
+                <option>Web Development</option>
+                <option>Python Programming</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="c-course">Branch</label>
+              <select id="c-course" name="branch">
+                <option value="">Select a Branch...</option>
+                <option>Janakpuri</option>
+                <option>Punjabi Bagh</option>
+              </select>
+            </div>
+            <!-- <div class="form-group">
+              <label for="c-msg">Message *</label>
+              <textarea
+                id="c-msg"
+                name="message"
+                placeholder="Tell us how we can help..."
+                required
+              ></textarea>
+              <span class="form-error" data-error="message"></span>
+            </div> -->
+            <button
+              type="submit"
+              class="btn btn-primary submit"
+              style="width: 100%; justify-content: center; padding: 0.9rem;color:black;"
+            >
+              Send Message →
+            </button>
+            <div class="form-success" id="contactSuccess">
+              ✅ Thank you! We'll get back to you within 24 hours.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
         <!-- Quick Contact -->
         <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;gap:1rem;flex-wrap:wrap;">
           <a href="https://wa.me/919310267583" class="btn btn-outline" target="_blank" rel="noopener" style="flex:1;justify-content:center;font-size:0.88rem;">
