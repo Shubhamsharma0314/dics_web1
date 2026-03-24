@@ -285,7 +285,7 @@ function markInvalid(field, errEl, msg) {
 
 /* ---- Contact Form Submission ---- */
 (function () {
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyT0bLGrfLHKw1gJNkMqWhHUeugXRCfelVj2bd7N63-MYUhtonnKW4sq8oNHEsuV1A/exec"; // ← Same URL as your popup
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiu79hFicVyg9yNbV49zkcSQh8eGC9Kqg5-9SmGJMItxocOYnsuFxtWqoZUN_m-nouqg/exec"; // ← Same URL as your popup
 
   const contactForm = document.getElementById('contactForm');
   if (!contactForm) return;
