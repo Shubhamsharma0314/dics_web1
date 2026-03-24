@@ -285,7 +285,7 @@ function markInvalid(field, errEl, msg) {
 
 /* ---- Contact Form Submission ---- */
 (function () {
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiu79hFicVyg9yNbV49zkcSQh8eGC9Kqg5-9SmGJMItxocOYnsuFxtWqoZUN_m-nouqg/exec"; // ← Same URL as your popup
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiu79hFicVyg9yNbV49zkcSQh8eGC9Kqg5-9SmGJMItxocOYnsuFxtWqoZUN_m-nouqg/exec";
 
   const contactForm = document.getElementById('contactForm');
   if (!contactForm) return;
@@ -295,24 +295,23 @@ function markInvalid(field, errEl, msg) {
 
     if (!validateForm(contactForm)) return;
 
-    const success     = document.getElementById('contactSuccess');
-    const btn         = contactForm.querySelector('button[type="submit"]');
+    const success      = document.getElementById('contactSuccess');
+    const btn          = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
 
-    // --- Collect form fields ---
-    // Adjust selectors to match your actual input name attributes
+    // Matched exactly to your name attributes: name, phone, email, course, branch
     const formData = {
-      name:              contactForm.querySelector('[name="name"]')?.value.trim()    || '',
-      email:             contactForm.querySelector('[name="email"]')?.value.trim()   || '',
-      phone:             contactForm.querySelector('[name="phone"]')?.value.trim()   || '',
-      course_interested: contactForm.querySelector('[name="course"]')?.value.trim()  || '',
-      branch:            contactForm.querySelector('[name="branch"]')?.value.trim()  || '',
-      // message:           contactForm.querySelector('[name="message"]')?.value.trim() || '',
+      name:              contactForm.querySelector('[name="name"]').value.trim(),
+      phone:             contactForm.querySelector('[name="phone"]').value.trim(),
+      email:             contactForm.querySelector('[name="email"]').value.trim(),
+      course_interested: contactForm.querySelector('[name="course"]').value,
+      branch:            contactForm.querySelector('[name="branch"]').value,
+    
     };
 
-    // --- Loading state ---
-    btn.textContent = 'Sending...';
-    btn.disabled    = true;
+    // Loading state
+    btn.textContent      = 'Sending...';
+    btn.disabled         = true;
     btn.style.background = '#f59e0b';
 
     try {
@@ -323,7 +322,7 @@ function markInvalid(field, errEl, msg) {
         body:    JSON.stringify(formData),
       });
 
-      // --- Success ---
+      // Success
       btn.textContent      = '✓ Message Sent!';
       btn.style.background = '#22c55e';
       if (success) success.style.display = 'block';
@@ -338,7 +337,7 @@ function markInvalid(field, errEl, msg) {
 
     } catch (error) {
 
-      // --- Error ---
+      // Error
       btn.textContent      = '✗ Failed. Try Again.';
       btn.style.background = '#ef4444';
       btn.disabled         = false;
@@ -350,7 +349,6 @@ function markInvalid(field, errEl, msg) {
     }
   });
 })();
-
 /* ---- Smooth Scroll for anchor links ---- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
