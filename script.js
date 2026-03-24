@@ -53,7 +53,7 @@
 // new -
 /* ---- Popup Enquiry Form (Always Show) ---- */
 (function () {
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiu79hFicVyg9yNbV49zkcSQh8eGC9Kqg5-9SmGJMItxocOYnsuFxtWqoZUN_m-nouqg/exec"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5JfWheXdIhA13E8_rWLLRuJ_lKUTS_DQLM_xdL2jq84GO48zwrdUiUBQ5gmOUE22X6Q/exec"; 
 
   const overlay = document.getElementById('popupOverlay');
   const closeBtn = document.getElementById('popupClose');
@@ -285,7 +285,7 @@ function markInvalid(field, errEl, msg) {
 
 /* ---- Contact Form Submission ---- */
 (function () {
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiu79hFicVyg9yNbV49zkcSQh8eGC9Kqg5-9SmGJMItxocOYnsuFxtWqoZUN_m-nouqg/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw5JfWheXdIhA13E8_rWLLRuJ_lKUTS_DQLM_xdL2jq84GO48zwrdUiUBQ5gmOUE22X6Q/exec";
 
   const contactForm = document.getElementById('contactForm');
   if (!contactForm) return;
