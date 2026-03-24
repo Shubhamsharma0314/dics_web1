@@ -53,6 +53,8 @@
 // new -
 /* ---- Popup Enquiry Form (Always Show) ---- */
 (function () {
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyT0bLGrfLHKw1gJNkMqWhHUeugXRCfelVj2bd7N63-MYUhtonnKW4sq8oNHEsuVBuV1A/exec"; 
+
   const overlay = document.getElementById('popupOverlay');
   const closeBtn = document.getElementById('popupClose');
   const popupForm = document.getElementById('popupForm');
@@ -84,16 +86,60 @@
 
     // Form submit
     if (popupForm) {
-      popupForm.addEventListener('submit', (e) => {
+      popupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (validateForm(popupForm)) {
-          const btn = popupForm.querySelector('button[type="submit"]');
+
+        if (!validateForm(popupForm)) return;
+
+        const btn = popupForm.querySelector('button[type="submit"]');
+
+        // --- Collect form field values ---
+        // Adjust these selectors to match your actual input field names/IDs
+        const formData = {
+          name:    popupForm.querySelector('[name="name"]')?.value.trim()    || '',
+          email:   popupForm.querySelector('[name="email"]')?.value.trim()   || '',
+          phone:   popupForm.querySelector('[name="phone"]')?.value.trim()   || '',
+          course_interested: popupForm.querySelector('[name="course"]')?.value.trim() || '',
+          branch: popupForm.querySelector('[name="branch"]')?.value.trim() || '',
+        };
+
+        // --- Loading state ---
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        btn.style.background = '#f59e0b';
+
+        try {
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Required for Google Apps Script
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+          });
+
+          // --- Success (no-cors won't return a readable response, so reaching here = success) ---
           btn.textContent = '✓ Enquiry Submitted!';
           btn.style.background = '#22c55e';
+          btn.disabled = false;
+          popupForm.reset();
 
           setTimeout(() => {
             overlay.classList.add('hidden');
-          }, 1500);
+            // Reset button in case popup reopens
+            btn.textContent = originalText;
+            btn.style.background = '';
+          }, 1800);
+
+        } catch (error) {
+          // --- Error state ---
+          btn.textContent = '✗ Failed. Try Again.';
+          btn.style.background = '#ef4444';
+          btn.disabled = false;
+
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+          }, 2500);
         }
       });
     }
