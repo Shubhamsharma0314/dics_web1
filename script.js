@@ -99,7 +99,7 @@
           name:    popupForm.querySelector('[name="name"]')?.value.trim()    || '',
           email:   popupForm.querySelector('[name="email"]')?.value.trim()   || '',
           phone:   popupForm.querySelector('[name="phone"]')?.value.trim()   || '',
-          course_interested: popupForm.querySelector('[name="course"]')?.value.trim() || '',
+          course : popupForm.querySelector('[name="course"]')?.value.trim() || '',
           branch: popupForm.querySelector('[name="branch"]')?.value.trim() || '',
         };
 
@@ -304,7 +304,7 @@ function markInvalid(field, errEl, msg) {
       name:              contactForm.querySelector('[name="name"]').value.trim(),
       phone:             contactForm.querySelector('[name="phone"]').value.trim(),
       email:             contactForm.querySelector('[name="email"]').value.trim(),
-      course_interested: contactForm.querySelector('[name="course"]').value,
+      course: contactForm.querySelector('[name="course"]').value,
       branch:            contactForm.querySelector('[name="branch"]').value,
     
     };
@@ -333,7 +333,7 @@ function markInvalid(field, errEl, msg) {
         btn.textContent      = originalText;
         btn.style.background = '';
         if (success) success.style.display = 'none';
-      }, 4000);
+      }, 2000);
 
     } catch (error) {
 
