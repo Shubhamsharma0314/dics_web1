@@ -397,3 +397,33 @@ searchInput.addEventListener("keyup", function () {
     }
   });
 });
+
+
+const slider = document.getElementById("slider");
+
+let auto = setInterval(autoSlide, 2500);
+
+function autoSlide() {
+  const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+  // if reached end → go to start
+  if (slider.scrollLeft >= maxScroll - 5) {
+    slider.scrollTo({
+      left: 0,
+      behavior: "smooth"
+    });
+  } else {
+    slider.scrollBy({
+      left: 320,
+      behavior: "smooth"
+    });
+  }
+}
+
+/* pause on hover */
+slider.addEventListener("mouseenter", () => clearInterval(auto));
+slider.addEventListener("mouseleave", () => auto = setInterval(autoSlide, 2500));
+
+/* pause on mobile touch */
+slider.addEventListener("touchstart", () => clearInterval(auto));
+slider.addEventListener("touchend", () => auto = setInterval(autoSlide, 2500));

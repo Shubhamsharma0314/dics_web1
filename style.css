@@ -614,6 +614,165 @@ grid-template-columns:1fr;
 }
 }
 
+/* review */
+/* Section */
+.slider-section {
+  padding: 10px 10px;
+  position: relative;
+}
+
+/* Scroll container */
+.slider-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding-bottom: 0px;
+}
+
+.slider-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* review_card */
+.review_card{
+min-width:320px;
+max-width:320px;
+display:flex;
+gap:15px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+padding:18px;
+border-radius:16px;
+backdrop-filter: blur(10px);
+transition:0.3s;
+color:#fff;
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
+}
+
+.review_card:hover{
+transform:translateY(-6px);
+border-color:#00ffff;
+box-shadow:0 15px 35px rgba(0,255,255,0.15);
+}
+
+/* image */
+.review_card img{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #00ffff;
+flex-shrink:0;
+}
+
+/* body */
+.review_card-body{
+flex:1;
+}
+
+.review_header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:8px;
+gap:10px;
+}
+
+.review_header h3{
+margin:0;
+font-size:16px;
+}
+
+.course{
+font-size:13px;
+color:#00ffff;
+}
+
+/* stars */
+.stars{
+color:#FFD700;
+font-size:14px;
+letter-spacing:2px;
+white-space:nowrap;
+}
+
+/* text */
+.review-text{
+font-size:14px;
+line-height:1.5;
+color:#ccc;
+margin-top:5px;
+}
+
+/* Buttons */
+.slider-btn {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(0,0,0,0.6);
+border: none;
+color: white;
+font-size: 24px;
+padding: 10px 15px;
+cursor: pointer;
+z-index: 10;
+border-radius:8px;
+}
+
+.prev { left: 5px; }
+.next { right: 5px; }
+
+
+/* ---------- MOBILE ---------- */
+@media(max-width:768px){
+
+.slider-section{
+padding:20px 10px;
+}
+
+.review_card{
+min-width:260px;
+max-width:260px;
+padding:15px;
+}
+
+.review_card img{
+width:55px;
+height:55px;
+}
+
+.review_header h3{
+font-size:14px;
+}
+
+.review-text{
+font-size:13px;
+}
+
+/* hide arrows on mobile */
+.slider-btn{
+display:none;
+}
+
+}
+
+
+/* ---------- SMALL MOBILE ---------- */
+@media(max-width:480px){
+
+.review_card{
+min-width:230px;
+max-width:230px;
+}
+
+.stars{
+font-size:12px;
+}
+
+}
+
+
 
 /* ============================================
    BLOG SECTION
