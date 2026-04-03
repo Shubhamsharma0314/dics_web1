@@ -4,21 +4,393 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog – DICS Computer Education</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2300d4ff'/><text y='24' x='6' font-size='20' font-weight='900' fill='%230a0f2c'>N</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0f2c;
+      --navy2: #0d1235;
+      --cyan: #00d4ff;
+      --cyan2: #00b8e0;
+      --card-bg: #111733;
+      --border: rgba(255,255,255,0.08);
+      --grey: #8a93b8;
+      --text: #e2e8f0;
+      --transition: 0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,15,44,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem;
+      color: var(--cyan); text-decoration: none; letter-spacing: -0.5px;
+    }
+    .nav-logo p { font-size: 0.6rem; color: var(--grey); font-family: 'DM Sans', sans-serif; font-weight: 400; line-height: 1; }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.88rem; font-weight: 500; color: var(--grey);
+      text-decoration: none; padding: 0.4rem 0.75rem; border-radius: 6px;
+      transition: var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--cyan); }
+    .btn-enroll {
+      background: var(--cyan) !important; color: var(--navy) !important;
+      font-weight: 700 !important; padding: 0.45rem 1.1rem !important;
+      border-radius: 8px !important;
+    }
+    .btn-enroll:hover { background: var(--cyan2) !important; }
+
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative; padding: 80px 0 60px; overflow: hidden;
+      background: linear-gradient(135deg, #0a0f2c 0%, #0d1a40 100%);
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(0,212,255,0.07) 0%, transparent 70%);
+    }
+    .breadcrumb { font-size: 0.8rem; color: var(--grey); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+    .breadcrumb a { color: var(--cyan); text-decoration: none; }
+    .section-tag {
+      display: inline-block; background: rgba(0,212,255,0.12); color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.25); border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.85rem; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .page-hero h1 {
+      font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 0.75rem;
+    }
+    .page-hero p { font-size: 1rem; color: var(--grey); max-width: 500px; line-height: 1.7; }
+
+    /* ── SEARCH BAR ── */
+    .search-wrapper {
+      max-width: 560px; margin: 2rem 0 0;
+      position: relative;
+    }
+    .search-wrapper input {
+      width: 100%; background: rgba(255,255,255,0.06);
+      border: 1.5px solid var(--border); border-radius: 12px;
+      color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      padding: 0.75rem 3rem 0.75rem 1.1rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .search-wrapper input::placeholder { color: var(--grey); }
+    .search-wrapper input:focus { border-color: var(--cyan); }
+    .search-wrapper .search-icon {
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      color: var(--grey); pointer-events: none;
+    }
+    .search-count {
+      font-size: 0.8rem; color: var(--grey); margin-top: 0.5rem;
+      min-height: 1.2em; transition: opacity 0.2s;
+    }
+    .search-count span { color: var(--cyan); font-weight: 600; }
+
+    /* ── FILTER TAGS ── */
+    .filter-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 2.5rem;
+    }
+    .filter-tag {
+      background: var(--card-bg); border: 1px solid var(--border);
+      color: var(--grey); font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem; font-weight: 500; padding: 0.35rem 0.9rem;
+      border-radius: 20px; cursor: pointer; transition: var(--transition);
+    }
+    .filter-tag:hover, .filter-tag.active {
+      border-color: var(--cyan); color: var(--cyan);
+      background: rgba(0,212,255,0.08);
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      display: none; text-align: center; padding: 4rem 2rem;
+      color: var(--grey);
+    }
+    .no-results.visible { display: block; }
+    .no-results svg { opacity: 0.3; margin-bottom: 1rem; }
+    .no-results h3 { font-family: 'Syne', sans-serif; color: #fff; margin-bottom: 0.5rem; }
+
+    /* ── FEATURED POST ── */
+    .blog-featured {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 0;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden; margin-bottom: 3rem;
+      cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .blog-featured:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .bf-img { height: 100%; min-height: 340px; overflow: hidden; }
+    .bf-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .blog-featured:hover .bf-img img { transform: scale(1.04); }
+    .bf-content { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .bf-content h2 {
+      font-family: 'Syne', sans-serif; font-size: 1.55rem; font-weight: 800;
+      color: #fff; line-height: 1.3; margin: 0.75rem 0 0.85rem;
+    }
+    .bf-content p { color: var(--grey); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.2rem; }
+    .blog-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .blog-tag {
+      background: rgba(0,212,255,0.1); color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.2); border-radius: 20px;
+      font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.7rem; letter-spacing: 0.03em;
+    }
+    .author-row { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--grey); }
+    .author-row img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; border-radius: 10px; cursor: pointer;
+      border: none; transition: var(--transition);
+    }
+    .btn-primary {
+      background: var(--cyan); color: var(--navy);
+      padding: 0.65rem 1.4rem;
+    }
+    .btn-primary:hover { background: var(--cyan2); }
+
+    /* ── BLOG GRID ── */
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .blog-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+      border-color: rgba(0,212,255,0.2);
+    }
+    .blog-img { height: 180px; overflow: hidden; }
+    .blog-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .blog-card:hover .blog-img img { transform: scale(1.06); }
+    .blog-body { padding: 1.4rem; }
+    .blog-body h3 {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+      color: #fff; line-height: 1.4; margin: 0.5rem 0 0.6rem;
+    }
+    .blog-body p { font-size: 0.875rem; color: var(--grey); line-height: 1.65; margin-bottom: 1rem; }
+    .blog-meta { display: flex; align-items: center; justify-content: space-between; }
+    .blog-author { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--grey); }
+    .blog-author img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+    .read-more {
+      font-size: 0.8rem; font-weight: 600; color: var(--cyan);
+      text-decoration: none; transition: gap 0.2s;
+      display: flex; align-items: center; gap: 0.2rem;
+    }
+    .read-more:hover { gap: 0.4rem; }
+
+    /* ── PAGINATION ── */
+    .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem; }
+    .page-btn {
+      width: 40px; height: 40px; border-radius: 8px; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      border: 1px solid var(--border); background: var(--card-bg); color: var(--grey);
+      transition: var(--transition);
+    }
+    .page-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .page-btn.active { background: var(--cyan); color: var(--navy); border-color: var(--cyan); font-weight: 700; }
+
+    /* ── ARTICLE POPUP ── */
+    .article-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(5,8,25,0.88); backdrop-filter: blur(10px);
+      align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    .article-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .article-modal {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 20px; width: 100%; max-width: 760px;
+      max-height: 90vh; overflow-y: auto;
+      animation: slideUp 0.3s ease;
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    }
+    .article-modal::-webkit-scrollbar { width: 6px; }
+    .article-modal::-webkit-scrollbar-track { background: transparent; }
+    .article-modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .modal-hero { position: relative; height: 260px; overflow: hidden; border-radius: 20px 20px 0 0; }
+    .modal-hero img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, var(--navy2) 0%, transparent 60%);
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem; z-index: 2;
+      background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; width: 36px; height: 36px; border-radius: 50%;
+      font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: var(--transition); backdrop-filter: blur(4px);
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.15); }
+
+    .modal-body { padding: 2rem 2.5rem 2.5rem; }
+    .modal-body h2 {
+      font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
+      color: #fff; line-height: 1.3; margin: 0.75rem 0 1rem;
+    }
+    .modal-meta { display: flex; align-items: center; gap: 0.65rem; font-size: 0.85rem; color: var(--grey); margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .modal-meta img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); }
+    .modal-meta span { color: var(--cyan); font-weight: 600; }
+    .modal-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+    .modal-content { font-size: 0.95rem; color: var(--grey); line-height: 1.85; }
+    .modal-content h3 {
+      font-family: 'Syne', sans-serif; font-size: 1.15rem; color: #fff;
+      margin: 1.5rem 0 0.6rem;
+    }
+    .modal-content p { margin-bottom: 1rem; }
+    .modal-content ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .modal-content ul li { margin-bottom: 0.4rem; }
+    .modal-content strong { color: var(--text); }
+    .modal-content .highlight {
+      background: rgba(0,212,255,0.08); border-left: 3px solid var(--cyan);
+      padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0;
+      color: var(--text);
+    }
+    .modal-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .modal-share { display: flex; gap: 0.5rem; align-items: center; font-size: 0.85rem; color: var(--grey); }
+    .share-btn {
+      background: var(--card-bg); border: 1px solid var(--border);
+      color: var(--grey); padding: 0.35rem 0.8rem; border-radius: 8px;
+      font-size: 0.8rem; cursor: pointer; transition: var(--transition);
+    }
+    .share-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── FOOTER ── */
+    .footer { background: #060b1e; border-top: 1px solid var(--border); padding: 60px 0 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 2.5rem; padding-bottom: 3rem; }
+    .footer-brand .nav-logo { font-size: 1.5rem; }
+    .footer-brand p { font-size: 0.875rem; color: var(--grey); line-height: 1.7; margin-top: 0.75rem; max-width: 280px; }
+    .social-links { display: flex; gap: 0.5rem; margin-top: 1.2rem; }
+    .social-link {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      color: var(--grey); font-size: 0.75rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: var(--transition);
+    }
+    .social-link:hover { border-color: var(--cyan); color: var(--cyan); }
+    .footer-col h4 { font-family: 'Syne', sans-serif; color: #fff; font-size: 0.9rem; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul a { color: var(--grey); text-decoration: none; font-size: 0.875rem; transition: var(--transition); }
+    .footer-col ul a:hover { color: var(--cyan); }
+    .footer-contact li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.875rem; color: var(--grey); margin-bottom: 0.75rem; }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding: 1.25rem 0;
+      font-size: 0.8rem; color: var(--grey);
+    }
+    .footer-bottom a { color: var(--grey); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--cyan); }
+    .footer-bottom .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+
+    /* ── WHATSAPP ── */
+    .whatsapp-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 500;
+      background: #25d366; color: #fff; border-radius: 50px;
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.1rem; text-decoration: none;
+      font-size: 0.85rem; font-weight: 600;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
+      transition: transform 0.2s;
+    }
+    .whatsapp-float:hover { transform: scale(1.04); }
+    .whatsapp-float svg { width: 20px; height: 20px; }
+
+    /* ── HIDDEN ── */
+    .blog-card[data-hidden="true"],
+    .blog-featured[data-hidden="true"] { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; flex-direction: column; position: absolute;
+        top: 64px; left: 0; right: 0; background: #0a0f2c;
+        border-bottom: 1px solid var(--border); padding: 1rem;
+        gap: 0.25rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; width: 100%; padding: 0.6rem 1rem; }
+      .hamburger { display: flex; }
+      .nav-inner { position: relative; }
+
+      .blog-featured { grid-template-columns: 1fr; }
+      .bf-img { min-height: 220px; }
+      .bf-content { padding: 1.5rem; }
+      .bf-content h2 { font-size: 1.25rem; }
+
+      .blog-grid { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+      .modal-body { padding: 1.5rem; }
+      .modal-body h2 { font-size: 1.3rem; }
+      .modal-hero { height: 200px; }
+
+      .whatsapp-float span { display: none; }
+      .whatsapp-float { padding: 0.75rem; border-radius: 50%; }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero { padding: 60px 0 40px; }
+      .blog-img { height: 160px; }
+      .filter-tags { gap: 0.4rem; }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Demo Banner -->
-  <!-- <div class="demo-banner">
-    🎓 Free Demo Class Available This Week! Limited Seats.
-    <a href="contact.html">Register Now →</a>
-  </div> -->
 
   <!-- Navbar -->
   <nav class="navbar">
     <div class="container nav-inner">
-      <a href="index.html" class="nav-logo">DICS</a>
+      <a href="index.html" class="nav-logo">DICS<p>Computer Education</p></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
         <li><a href="courses.html">Courses</a></li>
@@ -27,27 +399,59 @@
         <li><a href="contact.html">Contact Us</a></li>
         <li><a href="contact.html" class="btn-enroll">Enroll Now</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
   <!-- Page Hero -->
   <div class="page-hero">
-    <div class="page-hero-bg"></div>
     <div class="container">
       <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <span>Blog</span></div>
       <span class="section-tag">Knowledge Hub</span>
       <h1>Articles & Insights</h1>
       <p>Tech tips, career advice, industry trends, and learning guides from our expert faculty.</p>
+
+      <!-- Search -->
+      <div class="search-wrapper">
+        <input type="text" id="searchInput" placeholder="Search articles, topics, authors…" autocomplete="off" />
+        <span class="search-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+      </div>
+      <div class="search-count" id="searchCount"></div>
     </div>
   </div>
 
   <!-- Blog Section -->
-  <section style="background:var(--navy);padding:80px 0;">
+  <section style="background:var(--navy);padding:60px 0 80px;">
     <div class="container">
 
+      <!-- Filter Tags -->
+      <div class="filter-tags" id="filterTags">
+        <button class="filter-tag active" data-filter="all">All</button>
+        <button class="filter-tag" data-filter="AI & ML">AI & ML</button>
+        <button class="filter-tag" data-filter="Data Science">Data Science</button>
+        <button class="filter-tag" data-filter="Web Dev">Web Dev</button>
+        <button class="filter-tag" data-filter="Python">Python</button>
+        <button class="filter-tag" data-filter="Career">Career</button>
+        <button class="filter-tag" data-filter="SQL">SQL</button>
+        <button class="filter-tag" data-filter="Design">Design</button>
+      </div>
+
       <!-- Featured Post -->
-      <div class="blog-featured">
+      <div class="blog-featured"
+        data-title="The Complete Roadmap to Becoming a Data Scientist in 2025"
+        data-tags="Featured,AI & ML"
+        data-author="Rajesh Kumar"
+        data-date="Dec 15, 2024"
+        data-read="8 min read"
+        data-author-img="https://picsum.photos/seed/faculty1/60/60"
+        data-img="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80"
+        data-excerpt="A step-by-step guide covering everything from the basics of Python and statistics to advanced Machine Learning — with free resources and timeline."
+        data-content="featured"
+        onclick="openArticle(this)">
         <div class="bf-img">
           <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80" alt="AI and Machine Learning 2025" loading="lazy" />
         </div>
@@ -58,22 +462,30 @@
           </div>
           <h2>The Complete Roadmap to Becoming a Data Scientist in 2025</h2>
           <p>A step-by-step guide covering everything from the basics of Python and statistics to advanced Machine Learning — with free resources and timeline.</p>
-          <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:1.5rem;font-size:0.85rem;color:var(--grey);">
-            <img src="https://picsum.photos/seed/faculty1/60/60" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border);" alt="Author" />
+          <div class="author-row">
+            <img src="https://picsum.photos/seed/faculty1/60/60" alt="Rajesh Kumar" />
             <span>Rajesh Kumar</span>
-            <span>·</span>
-            <span>Dec 15, 2024</span>
-            <span>·</span>
-            <span>8 min read</span>
+            <span>·</span><span>Dec 15, 2024</span>
+            <span>·</span><span>8 min read</span>
           </div>
-          <a href="#" class="btn btn-primary">Read Full Article →</a>
+          <button class="btn btn-primary" onclick="event.stopPropagation();openArticle(this.closest('[data-title]'))">Read Full Article →</button>
         </div>
       </div>
 
       <!-- Blog Grid -->
-      <div class="blog-grid">
+      <div class="blog-grid" id="blogGrid">
 
-        <article class="blog-card">
+        <article class="blog-card"
+          data-title="Top 10 Data Science Skills Employers Want in 2025"
+          data-tags="Data Science,Career"
+          data-author="Priya Sharma"
+          data-date="Dec 8, 2024"
+          data-read="5 min read"
+          data-author-img="https://picsum.photos/seed/author1/60/60"
+          data-img="https://picsum.photos/seed/blog-ai/600/300"
+          data-excerpt="Explore the most in-demand skills that data science recruiters are actively looking for in candidates this year."
+          data-content="ds-skills"
+          onclick="openArticle(this)">
           <div class="blog-img"><img src="https://picsum.photos/seed/blog-ai/600/300" alt="Top 10 Data Science Skills" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Data Science</span><span class="blog-tag">Career</span></div>
@@ -84,12 +496,22 @@
                 <img src="https://picsum.photos/seed/author1/60/60" alt="Priya Sharma" />
                 <span>Priya Sharma · Dec 8</span>
               </div>
-              <a href="#" class="read-more">Read →</a>
+              <span class="read-more">Read →</span>
             </div>
           </div>
         </article>
 
-        <article class="blog-card">
+        <article class="blog-card"
+          data-title="React vs Vue in 2025: Which Should You Learn First?"
+          data-tags="Web Dev,React"
+          data-author="Rahul Verma"
+          data-date="Nov 29, 2024"
+          data-read="6 min read"
+          data-author-img="https://picsum.photos/seed/author2/60/60"
+          data-img="https://picsum.photos/seed/blog-web/600/300"
+          data-excerpt="A detailed comparison of two popular JavaScript frameworks to help beginners make the right choice for their career."
+          data-content="react-vue"
+          onclick="openArticle(this)">
           <div class="blog-img"><img src="https://picsum.photos/seed/blog-web/600/300" alt="React vs Vue 2025" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Web Dev</span><span class="blog-tag">React</span></div>
@@ -100,12 +522,22 @@
                 <img src="https://picsum.photos/seed/author2/60/60" alt="Rahul Verma" />
                 <span>Rahul Verma · Nov 29</span>
               </div>
-              <a href="#" class="read-more">Read →</a>
+              <span class="read-more">Read →</span>
             </div>
           </div>
         </article>
 
-        <article class="blog-card">
+        <article class="blog-card"
+          data-title="7 Python Tricks Every Beginner Should Know in 2025"
+          data-tags="Python,Tips"
+          data-author="Anjali Singh"
+          data-date="Nov 20, 2024"
+          data-read="4 min read"
+          data-author-img="https://picsum.photos/seed/author3/60/60"
+          data-img="https://picsum.photos/seed/blog-python/600/300"
+          data-excerpt="Practical Python tips that will make your code cleaner, faster, and more Pythonic right from day one."
+          data-content="python-tips"
+          onclick="openArticle(this)">
           <div class="blog-img"><img src="https://picsum.photos/seed/blog-python/600/300" alt="Python Tips" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Python</span><span class="blog-tag">Tips</span></div>
@@ -116,12 +548,22 @@
                 <img src="https://picsum.photos/seed/author3/60/60" alt="Anjali Singh" />
                 <span>Anjali Singh · Nov 20</span>
               </div>
-              <a href="#" class="read-more">Read →</a>
+              <span class="read-more">Read →</span>
             </div>
           </div>
         </article>
 
-        <article class="blog-card">
+        <article class="blog-card"
+          data-title="How to Land Your First IT Job With No Prior Experience"
+          data-tags="Career"
+          data-author="Suresh Nair"
+          data-date="Nov 12, 2024"
+          data-read="7 min read"
+          data-author-img="https://picsum.photos/seed/author4/60/60"
+          data-img="https://picsum.photos/seed/blog-career/600/300"
+          data-excerpt="Practical steps for freshers: building a portfolio, applying smart, and acing your first tech interview."
+          data-content="first-job"
+          onclick="openArticle(this)">
           <div class="blog-img"><img src="https://picsum.photos/seed/blog-career/600/300" alt="IT Career Tips" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Career</span></div>
@@ -132,12 +574,22 @@
                 <img src="https://picsum.photos/seed/author4/60/60" alt="Suresh Nair" />
                 <span>Suresh Nair · Nov 12</span>
               </div>
-              <a href="#" class="read-more">Read →</a>
+              <span class="read-more">Read →</span>
             </div>
           </div>
         </article>
 
-        <article class="blog-card">
+        <article class="blog-card"
+          data-title="SQL for Beginners: Master Queries in 30 Days"
+          data-tags="SQL,Database"
+          data-author="Meena Gupta"
+          data-date="Nov 5, 2024"
+          data-read="6 min read"
+          data-author-img="https://picsum.photos/seed/author5/60/60"
+          data-img="https://picsum.photos/seed/blog-sql/600/300"
+          data-excerpt="A structured 30-day plan to learn SQL from scratch — with practice problems and real-world datasets."
+          data-content="sql-30"
+          onclick="openArticle(this)">
           <div class="blog-img"><img src="https://picsum.photos/seed/blog-sql/600/300" alt="SQL Guide" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">SQL</span><span class="blog-tag">Database</span></div>
@@ -148,12 +600,22 @@
                 <img src="https://picsum.photos/seed/author5/60/60" alt="Meena Gupta" />
                 <span>Meena Gupta · Nov 5</span>
               </div>
-              <a href="#" class="read-more">Read →</a>
+              <span class="read-more">Read →</span>
             </div>
           </div>
         </article>
 
-        <article class="blog-card">
+        <article class="blog-card"
+          data-title="UI/UX Design Trends Every Designer Must Know in 2025"
+          data-tags="Design,UI/UX"
+          data-author="Divya Pillai"
+          data-date="Oct 28, 2024"
+          data-read="5 min read"
+          data-author-img="https://picsum.photos/seed/author6/60/60"
+          data-img="https://picsum.photos/seed/blog-design/600/300"
+          data-excerpt="From glassmorphism to AI-assisted design — the trends reshaping how digital products look and feel."
+          data-content="uiux-trends"
+          onclick="openArticle(this)">
           <div class="blog-img"><img src="https://picsum.photos/seed/blog-design/600/300" alt="UI Design Trends" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Design</span><span class="blog-tag">UI/UX</span></div>
@@ -164,26 +626,32 @@
                 <img src="https://picsum.photos/seed/author6/60/60" alt="Divya Pillai" />
                 <span>Divya Pillai · Oct 28</span>
               </div>
-              <a href="#" class="read-more">Read →</a>
+              <span class="read-more">Read →</span>
             </div>
           </div>
         </article>
 
       </div>
 
+      <!-- No Results -->
+      <div class="no-results" id="noResults">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3>No articles found</h3>
+        <p>Try a different keyword or browse by category above.</p>
+      </div>
+
       <!-- Pagination -->
-      <div style="display:flex;justify-content:center;gap:0.5rem;margin-top:3rem;">
-        <button style="width:40px;height:40px;border-radius:8px;background:var(--cyan);color:var(--navy);border:none;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;">1</button>
-        <button style="width:40px;height:40px;border-radius:8px;background:var(--card-bg);color:var(--grey);border:1px solid var(--border);font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">2</button>
-        <button style="width:40px;height:40px;border-radius:8px;background:var(--card-bg);color:var(--grey);border:1px solid var(--border);font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">3</button>
-        <button style="width:40px;height:40px;border-radius:8px;background:var(--card-bg);color:var(--grey);border:1px solid var(--border);font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">→</button>
+      <div class="pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">→</button>
       </div>
 
     </div>
   </section>
 
   <!-- Footer -->
- <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -229,36 +697,305 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;width:100%;">
+      <div class="container">
         <span>© 2026 DICS Computer Education. All rights reserved.</span>
         <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a></span>
       </div>
     </div>
   </footer>
 
-
-  <!-- Popup -->
-  <!-- <div class="popup-overlay hidden" id="popupOverlay" role="dialog" aria-modal="true">
-    <div class="popup-box">
-      <button class="popup-close" id="popupClose">✕</button>
-      <div class="popup-top"><span class="section-tag">🎓 Free Counselling</span><h2>Book a Free Demo Class</h2><p>Fill in your details and our counsellor will call you within 2 hours.</p></div>
-      <form id="popupForm" novalidate>
-        <div class="form-group"><label>Full Name *</label><input type="text" name="name" placeholder="Your full name" required /><span class="form-error" data-error="name"></span></div>
-        <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required /><span class="form-error" data-error="phone"></span></div>
-        <div class="form-group"><label>Email Address *</label><input type="email" name="email" placeholder="you@email.com" required /><span class="form-error" data-error="email"></span></div>
-        <div class="form-group"><label>Course Interested In *</label><select name="course" required><option value="">Select a course...</option><option>Data Analytics</option><option>Data Science</option><option>Web Development</option><option>Python Programming</option><option>Other</option></select><span class="form-error" data-error="course"></span></div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.9rem;margin-top:0.5rem;">Submit Enquiry →</button>
-      </form>
+  <!-- Article Popup Overlay -->
+  <div class="article-overlay" id="articleOverlay" role="dialog" aria-modal="true">
+    <div class="article-modal" id="articleModal">
+      <div class="modal-hero" id="modalHero">
+        <img id="modalImg" src="" alt="" />
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="blog-tags" id="modalTags"></div>
+        <h2 id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <div class="modal-divider"></div>
+        <div class="modal-content" id="modalContent"></div>
+        <div class="modal-footer">
+          <div class="modal-share">
+            <span>Share:</span>
+            <button class="share-btn" onclick="copyLink()">🔗 Copy Link</button>
+            <button class="share-btn">Twitter</button>
+            <button class="share-btn">LinkedIn</button>
+          </div>
+          <a href="contact.html" class="btn btn-primary" style="font-size:0.85rem;padding:0.5rem 1.1rem;">Enroll in Related Course →</a>
+        </div>
+      </div>
     </div>
-  </div> -->
+  </div>
 
   <!-- WhatsApp -->
   <a href="https://wa.me/919310267583" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-    <span class="wa-pulse"></span>
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     <span>Chat with Us</span>
   </a>
 
-  <script src="script.js"></script>
+  <script>
+    // ── ARTICLE CONTENT LIBRARY ──
+    const articles = {
+      featured: `
+        <p>Data science is one of the most sought-after career paths in 2025. With companies across industries investing heavily in AI and analytics, now is the perfect time to start your journey.</p>
+        <h3>Phase 1: Foundations (Weeks 1–6)</h3>
+        <p>Begin with <strong>Python programming</strong> — it's the language of data science. Focus on basics: variables, loops, functions, and libraries like NumPy and Pandas.</p>
+        <div class="highlight">💡 Recommended: Complete Python for Everybody on Coursera + 30 days of LeetCode easy problems</div>
+        <p>Simultaneously, brush up on <strong>statistics</strong> — mean, median, standard deviation, probability, and distributions. These form the bedrock of all ML models.</p>
+        <h3>Phase 2: Core Data Science Tools (Weeks 7–16)</h3>
+        <ul>
+          <li><strong>Pandas & NumPy</strong> — Data manipulation and numerical computing</li>
+          <li><strong>Matplotlib & Seaborn</strong> — Data visualization</li>
+          <li><strong>SQL</strong> — Querying databases (covered in 30 days)</li>
+          <li><strong>Scikit-learn</strong> — Your first ML models</li>
+        </ul>
+        <h3>Phase 3: Machine Learning (Weeks 17–28)</h3>
+        <p>Dive into supervised learning: regression, classification, decision trees, and ensemble methods. Then move to unsupervised learning: clustering and dimensionality reduction.</p>
+        <div class="highlight">📌 Build 3 end-to-end projects with real datasets from Kaggle. Employers care far more about projects than certificates.</div>
+        <h3>Phase 4: Deep Learning & Specialization (Weeks 29–40)</h3>
+        <p>Choose a specialization: NLP, computer vision, or time series. Learn TensorFlow or PyTorch. Deploy a model using Flask or FastAPI on the cloud.</p>
+        <h3>Building Your Portfolio</h3>
+        <p>Host everything on <strong>GitHub</strong>. Write clear READMEs. Deploy projects to Heroku or AWS. Document your thought process — hiring managers read this.</p>
+      `,
+      'ds-skills': `
+        <p>Data science roles in 2025 demand a blend of technical and business skills. Here are the top 10 that recruiters are screening for:</p>
+        <h3>Technical Skills</h3>
+        <ul>
+          <li><strong>Python (Advanced)</strong> — Pandas, NumPy, Scikit-learn, and at least one deep learning framework</li>
+          <li><strong>SQL & Database Design</strong> — Complex joins, window functions, query optimization</li>
+          <li><strong>Machine Learning</strong> — Model building, hyperparameter tuning, evaluation metrics</li>
+          <li><strong>Data Visualization</strong> — Tableau, Power BI, or advanced matplotlib/plotly</li>
+          <li><strong>Cloud Platforms</strong> — AWS SageMaker, GCP Vertex AI, or Azure ML</li>
+          <li><strong>Statistical Analysis</strong> — Hypothesis testing, A/B testing, Bayesian thinking</li>
+        </ul>
+        <h3>Soft Skills That Set You Apart</h3>
+        <ul>
+          <li><strong>Business Communication</strong> — Translating data insights into business language</li>
+          <li><strong>Storytelling with Data</strong> — Building narratives around dashboards and reports</li>
+          <li><strong>Problem Framing</strong> — Defining the right question before jumping to analysis</li>
+          <li><strong>Collaboration</strong> — Working across engineering, product, and leadership teams</li>
+        </ul>
+        <div class="highlight">🚀 Pro tip: Pair each technical skill with a project that demonstrates business impact, not just technical complexity.</div>
+      `,
+      'react-vue': `
+        <p>Two of the most popular frontend frameworks in 2025 continue to be React and Vue. Both are powerful, but they serve different learners and projects.</p>
+        <h3>React: The Industry Standard</h3>
+        <p>React, maintained by Meta, holds about 40% of the frontend framework market. It's component-based, uses JSX, and has a massive ecosystem (Next.js, React Native, Redux).</p>
+        <div class="highlight">✅ Choose React if you want: more job opportunities, large enterprise projects, or mobile development via React Native.</div>
+        <h3>Vue: The Gentle Giant</h3>
+        <p>Vue is known for its gentle learning curve and elegant template syntax. Vue 3 with the Composition API now rivals React's flexibility while remaining more beginner-friendly.</p>
+        <div class="highlight">✅ Choose Vue if you want: faster initial learning, cleaner templates, or projects in Asian tech markets where Vue dominates.</div>
+        <h3>The Verdict for 2025</h3>
+        <ul>
+          <li>Job market: <strong>React wins</strong> (3x more job postings)</li>
+          <li>Learning curve: <strong>Vue wins</strong> (more approachable syntax)</li>
+          <li>Ecosystem: <strong>React wins</strong> (Next.js is dominant)</li>
+          <li>Performance: <strong>Tie</strong> (both excellent with modern optimizations)</li>
+          <li>Satisfaction: <strong>Vue wins</strong> (higher developer happiness in surveys)</li>
+        </ul>
+        <p><strong>Our recommendation:</strong> Start with Vue to grasp concepts, then transition to React for career growth. The fundamentals transfer directly.</p>
+      `,
+      'python-tips': `
+        <p>These 7 Python tricks will immediately improve your code quality. They're the things experienced developers wish they'd learned on day one.</p>
+        <h3>1. List Comprehensions</h3>
+        <p>Replace 4-line for loops with elegant one-liners. <code>[x**2 for x in range(10) if x % 2 == 0]</code> is both faster and more readable.</p>
+        <h3>2. The Walrus Operator (:=)</h3>
+        <p>Assign and use a variable in the same expression — especially useful in while loops and comprehensions.</p>
+        <h3>3. f-Strings Over .format()</h3>
+        <p>f-Strings (f"Hello {name}!") are faster, cleaner, and support inline expressions. Stop using % formatting or .format() immediately.</p>
+        <h3>4. enumerate() Instead of range(len())</h3>
+        <p>When you need both index and value: <code>for i, val in enumerate(my_list)</code> — cleaner and more Pythonic.</p>
+        <h3>5. zip() for Parallel Iteration</h3>
+        <p>Iterate over multiple lists simultaneously: <code>for name, score in zip(names, scores)</code>. No more index juggling.</p>
+        <h3>6. defaultdict and Counter</h3>
+        <p>From the collections module — these remove 80% of boilerplate code when working with frequency counts or grouped data.</p>
+        <h3>7. Context Managers (with statements)</h3>
+        <p>Always use <code>with open(file) as f</code> for file handling. Context managers guarantee cleanup even if exceptions occur.</p>
+        <div class="highlight">🐍 Bonus: Learn to use Python's built-in <code>timeit</code> module to measure which approach is actually faster before optimizing.</div>
+      `,
+      'first-job': `
+        <p>Landing your first IT job without experience feels impossible — until you understand what hiring managers actually look for. Spoiler: it's not years of experience.</p>
+        <h3>Step 1: Build a Portfolio, Not Just a Resume</h3>
+        <p>A portfolio with 3 real projects beats a resume with 10 certifications. Build things that solve actual problems: a budget tracker, a weather app, a data dashboard for something you care about.</p>
+        <div class="highlight">📂 Host your projects on GitHub. Write clear README files. Deploy at least 2 projects so they're live and clickable.</div>
+        <h3>Step 2: Get Specific With Your Target Role</h3>
+        <p>Don't apply to "IT jobs" broadly. Pick one: frontend developer, data analyst, QA tester, or junior Python developer. Tailor your portfolio and resume to that specific role.</p>
+        <h3>Step 3: The Smart Application Strategy</h3>
+        <ul>
+          <li>Apply to startups first — they care more about skills than degrees</li>
+          <li>LinkedIn is your #1 tool — optimize your profile with keywords from job descriptions</li>
+          <li>Reach out directly to hiring managers (not just HR) with a genuine message</li>
+          <li>Apply to 10 targeted roles rather than 100 generic ones</li>
+        </ul>
+        <h3>Step 4: Interview Preparation</h3>
+        <p>Technical interviews are learnable. Practice 30 easy LeetCode problems, mock interview with friends, and prepare 3 stories using the STAR format about projects you've built.</p>
+        <h3>Step 5: Internships and Freelance Work</h3>
+        <p>Even a 2-month internship or one paid freelance project transforms your profile from "no experience" to "relevant experience." Don't skip this step.</p>
+      `,
+      'sql-30': `
+        <p>SQL is the most universally required skill across data analyst, data scientist, backend developer, and business analyst roles. Here's your 30-day roadmap.</p>
+        <h3>Week 1: The Absolute Basics (Days 1–7)</h3>
+        <ul>
+          <li>SELECT, FROM, WHERE</li>
+          <li>ORDER BY, LIMIT</li>
+          <li>Basic filtering: =, !=, LIKE, IN, BETWEEN</li>
+          <li>NULL handling: IS NULL, COALESCE</li>
+        </ul>
+        <h3>Week 2: Aggregation & Grouping (Days 8–14)</h3>
+        <ul>
+          <li>GROUP BY and HAVING</li>
+          <li>Aggregate functions: COUNT, SUM, AVG, MAX, MIN</li>
+          <li>Aliases and computed columns</li>
+          <li>DISTINCT and duplicate handling</li>
+        </ul>
+        <h3>Week 3: Joins & Subqueries (Days 15–21)</h3>
+        <ul>
+          <li>INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN</li>
+          <li>Self-joins and cross-joins</li>
+          <li>Subqueries in SELECT, WHERE, and FROM</li>
+          <li>CTEs (Common Table Expressions) — WITH clause</li>
+        </ul>
+        <h3>Week 4: Advanced SQL (Days 22–30)</h3>
+        <ul>
+          <li>Window functions: ROW_NUMBER, RANK, LAG, LEAD</li>
+          <li>CASE statements for conditional logic</li>
+          <li>String functions and date operations</li>
+          <li>Query optimization and EXPLAIN plans</li>
+        </ul>
+        <div class="highlight">🎯 Practice platform: SQLZoo + Mode Analytics + 2 real Kaggle datasets. Write at least 5 queries per day to build muscle memory.</div>
+      `,
+      'uiux-trends': `
+        <p>UI/UX design in 2025 is being reshaped by AI tools, new interaction paradigms, and a renewed focus on accessibility and emotional design.</p>
+        <h3>1. AI-Assisted Design</h3>
+        <p>Tools like Figma AI, Adobe Firefly, and Galileo AI are generating UI layouts, icons, and illustrations from text prompts. Designers who leverage these tools produce 3x faster without losing quality.</p>
+        <h3>2. Glassmorphism 2.0</h3>
+        <p>The frosted glass aesthetic has evolved with more depth, subtle grain textures, and dynamic blur effects tied to scroll position. Apple's visionOS has pushed this mainstream.</p>
+        <h3>3. Kinetic Typography</h3>
+        <p>Text that moves — not as an afterthought, but as the primary visual element. With GSAP and CSS animations maturing, kinetic type is accessible to all web designers.</p>
+        <h3>4. Dark Mode as Default</h3>
+        <p>Dark-first design is now the standard for tech products. Battery savings, reduced eye strain, and the aesthetic appeal have made it the preferred starting point.</p>
+        <h3>5. Micro-Interactions at Scale</h3>
+        <p>Every tap, hover, and scroll has a purposeful response. The best products in 2025 feel alive — and this is entirely driven by well-designed micro-interactions.</p>
+        <h3>6. Radical Accessibility</h3>
+        <p>WCAG 3.0 and increasing legal pressure are pushing accessibility from afterthought to core design principle. Color contrast, focus states, and screen reader support are now non-negotiable.</p>
+        <div class="highlight">🎨 Tools to learn in 2025: Figma (with Dev Mode), ProtoPie for advanced interactions, and Spline for 3D web experiences.</div>
+      `
+    };
+
+    // ── OPEN ARTICLE POPUP ──
+    function openArticle(el) {
+      const title = el.dataset.title;
+      const tags = el.dataset.tags?.split(',') || [];
+      const author = el.dataset.author;
+      const date = el.dataset.date;
+      const read = el.dataset.read;
+      const authorImg = el.dataset.authorImg;
+      const img = el.dataset.img;
+      const contentKey = el.dataset.content;
+
+      document.getElementById('modalImg').src = img;
+      document.getElementById('modalImg').alt = title;
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalTags').innerHTML = tags.map(t => `<span class="blog-tag">${t.trim()}</span>`).join('');
+      document.getElementById('modalMeta').innerHTML = `
+        <img src="${authorImg}" alt="${author}" />
+        <span style="color:var(--text)">${author}</span>
+        <span>·</span><span>${date}</span>
+        <span>·</span><span>${read}</span>
+      `;
+      document.getElementById('modalContent').innerHTML = articles[contentKey] || `<p>${el.dataset.excerpt}</p>`;
+
+      const overlay = document.getElementById('articleOverlay');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeArticle);
+    document.getElementById('articleOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeArticle();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeArticle();
+    });
+
+    function closeArticle() {
+      document.getElementById('articleOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = event.target;
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => btn.textContent = '🔗 Copy Link', 2000);
+      });
+    }
+
+    // ── SEARCH ──
+    const searchInput = document.getElementById('searchInput');
+    const searchCount = document.getElementById('searchCount');
+    let currentFilter = 'all';
+
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.blog-card');
+      const featured = document.querySelector('.blog-featured');
+      let visible = 0;
+
+      // Featured
+      const fTitle = featured.dataset.title.toLowerCase();
+      const fTags = featured.dataset.tags.toLowerCase();
+      const fAuthor = featured.dataset.author.toLowerCase();
+      const fExcerpt = featured.dataset.excerpt.toLowerCase();
+      const fMatchSearch = !query || fTitle.includes(query) || fTags.includes(query) || fAuthor.includes(query) || fExcerpt.includes(query);
+      const fMatchFilter = currentFilter === 'all' || fTags.includes(currentFilter.toLowerCase());
+      const fShow = fMatchSearch && fMatchFilter;
+      featured.dataset.hidden = !fShow;
+      featured.style.display = fShow ? '' : 'none';
+      if (fShow) visible++;
+
+      // Cards
+      cards.forEach(card => {
+        const t = card.dataset.title.toLowerCase();
+        const tg = card.dataset.tags.toLowerCase();
+        const a = card.dataset.author.toLowerCase();
+        const ex = card.dataset.excerpt.toLowerCase();
+        const matchSearch = !query || t.includes(query) || tg.includes(query) || a.includes(query) || ex.includes(query);
+        const matchFilter = currentFilter === 'all' || tg.includes(currentFilter.toLowerCase());
+        const show = matchSearch && matchFilter;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      // No results
+      document.getElementById('noResults').classList.toggle('visible', visible === 0);
+
+      // Count message
+      if (query || currentFilter !== 'all') {
+        searchCount.innerHTML = `Showing <span>${visible}</span> article${visible !== 1 ? 's' : ''}`;
+      } else {
+        searchCount.innerHTML = '';
+      }
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+
+    // ── FILTER TAGS ──
+    document.getElementById('filterTags').addEventListener('click', function(e) {
+      if (!e.target.matches('.filter-tag')) return;
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+      e.target.classList.add('active');
+      currentFilter = e.target.dataset.filter;
+      applyFilters();
+    });
+
+    // ── HAMBURGER ──
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+  </script>
 </body>
 </html>
