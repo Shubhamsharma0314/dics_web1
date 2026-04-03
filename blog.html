@@ -4,684 +4,167 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog – DICS Computer Education</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --primary:                    #62e9ef;
-      --primary-container:          #3ecdd3;
-      --on-primary:                 #0c112e;
-      --surface:                    #0c112e;
-      --surface-bright:             #1e2547;
-      --surface-container-lowest:   #090d24;
-      --surface-container-low:      #10162f;
-      --surface-container:          #161d3a;
-      --surface-container-high:     #1c2444;
-      --surface-container-highest:  #2e3351;
-      --on-surface:                 #e4ecec;
-      --on-surface-variant:         #bbc9c9;
-      --outline-variant:            rgba(187,201,201,0.15);
-      --outline-ghost:              rgba(187,201,201,0.07);
-      --font-display: 'Plus Jakarta Sans', sans-serif;
-      --font-body:    'Manrope', sans-serif;
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --dur: 0.22s;
-    }
-
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      background: var(--surface);
-      color: var(--on-surface);
-      line-height: 1.65;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
-
-    /* ── NAVBAR ── */
-    .navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(12,17,46,0.80);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
-    }
-    .nav-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 58px; gap: 1rem;
-    }
-    .nav-logo {
-      display: flex; align-items: center; gap: 0.45rem;
-      text-decoration: none; flex-shrink: 0;
-    }
-    .nav-logo-icon {
-      width: 27px; height: 27px; border-radius: 7px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-container));
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-weight: 800; font-size: 0.72rem;
-      color: var(--on-primary);
-    }
-    .nav-logo-text {
-      font-family: var(--font-display); font-weight: 700; font-size: 0.97rem;
-      color: var(--on-surface);
-    }
-    .nav-links {
-      display: flex; align-items: center; gap: 0.1rem; list-style: none;
-      flex: 1; justify-content: center;
-    }
-    .nav-links a {
-      padding: 0.38rem 0.72rem; border-radius: 8px; font-size: 0.865rem;
-      color: var(--on-surface-variant); text-decoration: none; font-weight: 500;
-      transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
-      font-family: var(--font-body);
-    }
-    .nav-links a:hover { color: var(--on-surface); background: var(--outline-ghost); }
-    .nav-links a.active { color: var(--primary); }
-    .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
-    .nav-search {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: var(--surface-container-lowest);
-      border-radius: 8px; padding: 0.38rem 0.75rem;
-      border: 1px solid var(--outline-ghost);
-      font-size: 0.8rem; color: var(--on-surface-variant);
-      font-family: var(--font-body); min-width: 155px;
-      transition: border-color var(--dur) var(--ease);
-    }
-    .nav-search:hover { border-color: var(--outline-variant); }
-    .btn-signin {
-      padding: 0.38rem 0.9rem; border-radius: 8px;
-      background: var(--surface-container-high);
-      border: 1px solid var(--outline-variant);
-      color: var(--on-surface); font-size: 0.78rem; font-weight: 700;
-      font-family: var(--font-display); cursor: pointer; text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
-      white-space: nowrap;
-    }
-    .btn-signin:hover { background: var(--surface-container-highest); transform: scale(1.02); }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--on-surface); border-radius: 2px; }
-
-    /* ── HERO ── */
-    .hero {
-      background: var(--surface-container-low);
-      padding: 108px 0 76px;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 640px 300px at 50% 0%, rgba(98,233,239,0.09) 0%, transparent 70%),
-        radial-gradient(ellipse 380px 200px at 20% 80%, rgba(77,184,255,0.05) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(98,233,239,0.1) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
-      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
-      pointer-events: none;
-    }
-    .hero-inner { position: relative; z-index: 1; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.28rem 0.85rem; border-radius: 100px;
-      background: var(--outline-ghost); border: 1px solid var(--outline-variant);
-      color: var(--on-surface-variant); font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.4rem;
-      font-family: var(--font-display);
-    }
-    .hero-badge::before { content: '+'; color: var(--primary); margin-right: 0.15rem; }
-    .hero h1 {
-      font-family: var(--font-display); font-size: clamp(2.6rem, 6vw, 4rem);
-      font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.1rem;
-    }
-    .hero h1 .accent { color: var(--primary); display: block; }
-    .hero-sub {
-      color: var(--on-surface-variant); font-size: 0.97rem; max-width: 430px;
-      margin: 0 auto 2.2rem; font-weight: 400; line-height: 1.78;
-    }
-    .hero-search {
-      display: flex; align-items: center; max-width: 470px; margin: 0 auto;
-      background: var(--surface-container-lowest);
-      border: 1px solid var(--outline-variant);
-      border-radius: 11px; overflow: hidden;
-      transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-    }
-    .hero-search:focus-within {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(98,233,239,0.1);
-    }
-    .hero-search-icon { padding: 0 0.7rem; color: var(--on-surface-variant); opacity: 0.55; display: flex; }
-    .hero-search input {
-      flex: 1; padding: 0.8rem 0.5rem; background: none; border: none;
-      color: var(--on-surface); font-family: var(--font-body); font-size: 0.88rem; outline: none;
-    }
-    .hero-search input::placeholder { color: var(--on-surface-variant); opacity: 0.6; }
-    .btn-explore {
-      padding: 0.8rem 1.3rem;
-      background: linear-gradient(90deg, var(--primary), var(--primary-container));
-      color: var(--on-primary); border: none;
-      font-family: var(--font-display); font-weight: 700; font-size: 0.76rem;
-      letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer;
-      border-radius: 0 9px 9px 0;
-      transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
-      white-space: nowrap;
-    }
-    .btn-explore:hover { opacity: 0.88; transform: scale(1.02); }
-
-    /* ── MAIN ── */
-    .main-section { background: var(--surface); padding: 68px 0; }
-
-    .featured-label {
-      display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.4rem;
-    }
-    .featured-label::before {
-      content: ''; display: block; width: 28px; height: 1px; background: var(--primary); opacity: 0.6;
-    }
-    .featured-label span {
-      font-size: 0.67rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--on-surface-variant);
-      font-family: var(--font-display);
-    }
-
-    /* ── Featured Card ── */
-    .featured-card {
-      display: grid; grid-template-columns: 5fr 7fr;
-      background: var(--surface-container-low);
-      border-radius: 16px; overflow: hidden; margin-bottom: 4rem;
-      transition: background var(--dur) var(--ease);
-    }
-    .featured-card:hover { background: var(--surface-container); }
-    .featured-text {
-      padding: 2.4rem 2.4rem;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .featured-text h2 {
-      font-family: var(--font-display); font-size: clamp(1.5rem, 2.8vw, 2.1rem);
-      font-weight: 800; line-height: 1.2; letter-spacing: -0.025em;
-      color: var(--on-surface); margin-bottom: 0.9rem;
-    }
-    .featured-text p {
-      color: var(--on-surface-variant); font-size: 0.88rem; line-height: 1.72;
-      margin-bottom: 1.4rem;
-    }
-    .featured-meta {
-      display: flex; align-items: center; gap: 0.45rem;
-      font-size: 0.76rem; color: var(--on-surface-variant);
-    }
-    .featured-meta img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
-    .dot { opacity: 0.35; }
-    .featured-img { position: relative; overflow: hidden; min-height: 320px; }
-    .featured-img img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.5s var(--ease);
-    }
-    .featured-card:hover .featured-img img { transform: scale(1.03); }
-    .featured-img::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(90deg, var(--surface-container-low) 0%, transparent 28%);
-      transition: background var(--dur) var(--ease);
-    }
-    .featured-card:hover .featured-img::before {
-      background: linear-gradient(90deg, var(--surface-container) 0%, transparent 28%);
-    }
-
-    /* ── Section Header ── */
-    .section-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      margin-bottom: 0.4rem;
-    }
-    .section-header h2 {
-      font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
-      letter-spacing: -0.02em; color: var(--on-surface);
-    }
-    .section-header p {
-      color: var(--on-surface-variant); font-size: 0.84rem; margin-top: 0.2rem;
-    }
-    .section-actions { display: flex; align-items: center; gap: 0.45rem; }
-    .btn-filter {
-      width: 33px; height: 33px; border-radius: 8px;
-      background: var(--surface-container-high);
-      border: 1px solid var(--outline-ghost);
-      color: var(--on-surface-variant); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background var(--dur) var(--ease);
-    }
-    .btn-filter:hover { background: var(--surface-container-highest); }
-    .btn-view-all {
-      display: flex; align-items: center; gap: 0.3rem;
-      padding: 0.38rem 0.85rem; border-radius: 8px;
-      background: var(--surface-container-high);
-      border: 1px solid var(--outline-ghost);
-      color: var(--on-surface-variant); font-size: 0.78rem; font-weight: 600;
-      text-decoration: none; font-family: var(--font-display);
-      transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
-    }
-    .btn-view-all:hover { background: var(--surface-container-highest); color: var(--on-surface); }
-
-    .blog-section-gap { height: 1.75rem; }
-
-    /* ── Blog Grids ── */
-    .blog-grid-main {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .blog-grid-secondary {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
-    }
-
-    .blog-card {
-      background: var(--surface-container-low);
-      border-radius: 13px; overflow: hidden;
-      transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
-      cursor: pointer; display: flex; flex-direction: column;
-    }
-    .blog-card:hover { background: var(--surface-container-high); transform: translateY(-2px); }
-
-    /* Hero-style card: image left, text right */
-    .blog-card-hero {
-      display: grid; grid-template-columns: 1fr 1fr;
-      flex-direction: unset;
-    }
-    .blog-card-hero .card-img { min-height: 200px; }
-    .blog-card-hero .card-body {
-      padding: 1.5rem; display: flex; flex-direction: column; justify-content: flex-end;
-    }
-    .blog-card-hero .card-title { font-size: 1.25rem !important; margin-bottom: 0.7rem; }
-    .blog-card-hero .card-excerpt { -webkit-line-clamp: 4; }
-
-    .card-img { overflow: hidden; position: relative; flex-shrink: 0; }
-    .card-img img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.4s var(--ease); min-height: 150px;
-    }
-    .blog-card:hover .card-img img { transform: scale(1.04); }
-
-    .card-body { padding: 1.2rem 1.2rem 1.05rem; flex: 1; display: flex; flex-direction: column; }
-    .card-category {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--primary);
-      font-family: var(--font-display); margin-bottom: 0.45rem;
-    }
-    .card-title {
-      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
-      line-height: 1.3; letter-spacing: -0.015em;
-      color: var(--on-surface); margin-bottom: 0.55rem; flex: 1;
-    }
-    .card-excerpt {
-      color: var(--on-surface-variant); font-size: 0.81rem; line-height: 1.67;
-      margin-bottom: 0.9rem; display: -webkit-box;
-      -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .card-meta {
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 0.73rem; color: var(--on-surface-variant); margin-top: auto;
-    }
-    .card-meta-left { display: flex; align-items: center; gap: 0.4rem; }
-    .card-meta-left img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
-    .card-arrow {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: var(--surface-container-highest);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--primary); font-size: 0.72rem; flex-shrink: 0;
-      transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
-    }
-    .blog-card:hover .card-arrow {
-      background: var(--primary); color: var(--on-primary); transform: translateX(2px);
-    }
-
-    .blog-card-sm .card-img { height: 148px; }
-    .blog-card-sm .card-title { font-size: 0.93rem; }
-    .blog-card-sm .card-excerpt { -webkit-line-clamp: 2; }
-
-    /* ── Pagination ── */
-    .pagination {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0.38rem; margin-top: 3rem;
-    }
-    .page-btn {
-      width: 37px; height: 37px; border-radius: 9px; border: none;
-      background: var(--surface-container-low);
-      color: var(--on-surface-variant); font-family: var(--font-display);
-      font-weight: 600; font-size: 0.86rem; cursor: pointer;
-      transition: background var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease);
-    }
-    .page-btn:hover { background: var(--surface-container-highest); color: var(--on-surface); }
-    .page-btn.active { background: var(--primary); color: var(--on-primary); font-weight: 800; }
-    .page-btn.active:hover { transform: scale(1.04); }
-
-    /* ── Footer ── */
-    .footer { background: var(--surface-container-lowest); padding: 52px 0 0; }
-    .footer-grid {
-      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
-      gap: 2rem; padding-bottom: 2.5rem;
-    }
-    .footer-brand > p {
-      color: var(--on-surface-variant); font-size: 0.84rem; line-height: 1.72;
-      max-width: 230px; margin: 0.9rem 0 1.3rem;
-    }
-    .social-links { display: flex; gap: 0.45rem; }
-    .social-link {
-      width: 30px; height: 30px; border-radius: 7px;
-      background: var(--surface-container-high);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--on-surface-variant); font-size: 0.75rem; font-weight: 700;
-      text-decoration: none;
-      transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
-    }
-    .social-link:hover { background: var(--primary); color: var(--on-primary); }
-    .footer-col h4 {
-      font-family: var(--font-display); font-size: 0.67rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--on-surface-variant); margin-bottom: 1rem;
-    }
-    .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 0.55rem; }
-    .footer-col ul li a {
-      color: var(--on-surface-variant); text-decoration: none; font-size: 0.86rem;
-      transition: color var(--dur) var(--ease);
-    }
-    .footer-col ul li a:hover { color: var(--primary); }
-    .footer-newsletter p {
-      color: var(--on-surface-variant); font-size: 0.84rem; margin-bottom: 0.9rem; line-height: 1.65;
-    }
-    .newsletter-input-row { display: flex; flex-direction: column; gap: 0.45rem; }
-    .newsletter-input {
-      padding: 0.62rem 0.85rem;
-      background: var(--surface-container-lowest);
-      border: 1px solid var(--outline-variant);
-      border-radius: 8px; color: var(--on-surface);
-      font-family: var(--font-body); font-size: 0.84rem; outline: none;
-      transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-    }
-    .newsletter-input::placeholder { color: var(--on-surface-variant); opacity: 0.55; }
-    .newsletter-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(98,233,239,0.1);
-    }
-    .btn-subscribe {
-      padding: 0.62rem;
-      background: linear-gradient(90deg, var(--primary), var(--primary-container));
-      color: var(--on-primary); border: none; border-radius: 8px;
-      font-family: var(--font-display); font-weight: 700; font-size: 0.74rem;
-      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
-      transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
-    }
-    .btn-subscribe:hover { opacity: 0.88; transform: scale(1.02); }
-    .footer-bottom {
-      border-top: 1px solid var(--outline-ghost); padding: 1.05rem 0;
-    }
-    .footer-bottom-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 0.5rem;
-    }
-    .footer-bottom-left { display: flex; gap: 1.4rem; }
-    .footer-bottom a, .footer-bottom span {
-      font-size: 0.76rem; color: var(--on-surface-variant);
-      text-decoration: none;
-      transition: color var(--dur) var(--ease);
-    }
-    .footer-bottom a:hover { color: var(--primary); }
-
-    /* ── WhatsApp ── */
-    .whatsapp-float {
-      position: fixed; bottom: 1.4rem; right: 1.4rem; z-index: 200;
-      display: flex; align-items: center; gap: 0.45rem;
-      background: #25d366; color: #fff; text-decoration: none;
-      padding: 0.5rem 0.95rem 0.5rem 0.6rem; border-radius: 100px;
-      font-weight: 700; font-size: 0.82rem; font-family: var(--font-display);
-      box-shadow: 0 8px 28px rgba(37,211,102,0.22);
-      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-      position: fixed;
-    }
-    .whatsapp-float:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(37,211,102,0.32); }
-    .whatsapp-float svg { width: 19px; height: 19px; }
-    .wa-pulse {
-      position: absolute; top: -2px; right: -2px;
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #ff4444; animation: pulse 1.8s infinite;
-    }
-    @keyframes pulse {
-      0%   { box-shadow: 0 0 0 0 rgba(255,68,68,0.5); }
-      70%  { box-shadow: 0 0 0 7px rgba(255,68,68,0); }
-      100% { box-shadow: 0 0 0 0 rgba(255,68,68,0); }
-    }
-
-    /* ── Animations ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .hero-inner > * { animation: fadeUp 0.55s var(--ease) both; }
-    .hero-inner > *:nth-child(1) { animation-delay: 0s; }
-    .hero-inner > *:nth-child(2) { animation-delay: 0.07s; }
-    .hero-inner > *:nth-child(3) { animation-delay: 0.14s; }
-    .hero-inner > *:nth-child(4) { animation-delay: 0.21s; }
-    .featured-card { animation: fadeUp 0.5s var(--ease) 0.1s both; }
-    .blog-card { animation: fadeUp 0.42s var(--ease) both; }
-    .blog-card:nth-child(1) { animation-delay: 0.04s; }
-    .blog-card:nth-child(2) { animation-delay: 0.09s; }
-    .blog-card:nth-child(3) { animation-delay: 0.14s; }
-    .blog-card:nth-child(4) { animation-delay: 0.19s; }
-    .blog-card:nth-child(5) { animation-delay: 0.24s; }
-
-    /* ── Responsive ── */
-    @media (max-width: 1024px) {
-      .blog-grid-main { grid-template-columns: 1fr; }
-      .blog-card-hero { grid-template-columns: 1fr 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; flex-direction: column; position: fixed;
-        top: 58px; left: 0; right: 0; background: rgba(12,17,46,0.97);
-        backdrop-filter: blur(20px); padding: 0.9rem;
-        border-bottom: 1px solid var(--outline-ghost); gap: 0.15rem; }
-      .nav-links.open { display: flex; }
-      .nav-search { display: none; }
-      .hamburger { display: flex; }
-      .featured-card { grid-template-columns: 1fr; }
-      .featured-img { min-height: 190px; }
-      .featured-img::before { background: linear-gradient(180deg, transparent 60%, var(--surface-container-low) 100%); }
-      .blog-card-hero { grid-template-columns: 1fr; }
-      .blog-grid-secondary { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 520px) {
-      .blog-grid-secondary { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 2.2rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2300d4ff'/><text y='24' x='6' font-size='20' font-weight='900' fill='%230a0f2c'>N</text></svg>" />
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- Demo Banner -->
+  <!-- <div class="demo-banner">
+    🎓 Free Demo Class Available This Week! Limited Seats.
+    <a href="contact.html">Register Now →</a>
+  </div> -->
+
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="container nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="nav-logo-icon">D</div>
-        <span class="nav-logo-text">DICS</span>
-      </a>
+      <a href="index.html" class="nav-logo">DICS</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
-        <li><a href="blog.html" class="active">Articles</a></li>
         <li><a href="courses.html">Courses</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html" class="btn-enroll">Enroll Now</a></li>
       </ul>
-      <div class="nav-actions">
-        <div class="nav-search">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          Search insights...
-        </div>
-        <a href="contact.html" class="btn-signin">SIGN IN</a>
-      </div>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="container hero-inner">
-      <div class="hero-badge">THE DIGITAL FRONTIER</div>
-      <h1>Articles &amp;<br><span class="accent">Insights</span></h1>
-      <p class="hero-sub">Curated thoughts on the intersection of technology, design, and humanity. Stay ahead with our weekly briefings.</p>
-      <div class="hero-search">
-        <span class="hero-search-icon">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </span>
-        <input type="text" placeholder="What are you looking for?" />
-        <button class="btn-explore">EXPLORE</button>
-      </div>
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <span>Blog</span></div>
+      <span class="section-tag">Knowledge Hub</span>
+      <h1>Articles & Insights</h1>
+      <p>Tech tips, career advice, industry trends, and learning guides from our expert faculty.</p>
     </div>
   </div>
 
-  <!-- MAIN -->
-  <section class="main-section">
+  <!-- Blog Section -->
+  <section style="background:var(--navy);padding:80px 0;">
     <div class="container">
 
-      <div class="featured-label"><span>FEATURED SELECTION</span></div>
-
-      <!-- Featured Card -->
-      <div class="featured-card">
-        <div class="featured-text">
+      <!-- Featured Post -->
+      <div class="blog-featured">
+        <div class="bf-img">
+          <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80" alt="AI and Machine Learning 2025" loading="lazy" />
+        </div>
+        <div class="bf-content">
+          <div class="blog-tags">
+            <span class="blog-tag">Featured</span>
+            <span class="blog-tag">AI & ML</span>
+          </div>
           <h2>The Complete Roadmap to Becoming a Data Scientist in 2025</h2>
-          <p>A comprehensive guide covering mathematics, programming, and machine learning essentials for the modern data professional.</p>
-          <div class="featured-meta">
-            <img src="https://picsum.photos/seed/faculty1/60/60" alt="Rajesh Kumar" />
+          <p>A step-by-step guide covering everything from the basics of Python and statistics to advanced Machine Learning — with free resources and timeline.</p>
+          <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:1.5rem;font-size:0.85rem;color:var(--grey);">
+            <img src="https://picsum.photos/seed/faculty1/60/60" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border);" alt="Author" />
             <span>Rajesh Kumar</span>
-            <span class="dot">·</span>
+            <span>·</span>
             <span>Dec 15, 2024</span>
-            <span class="dot">·</span>
+            <span>·</span>
             <span>8 min read</span>
           </div>
-        </div>
-        <div class="featured-img">
-          <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=900&q=80" alt="Data Science" loading="lazy" />
+          <a href="#" class="btn btn-primary">Read Full Article →</a>
         </div>
       </div>
 
-      <!-- Section Header -->
-      <div class="section-header">
-        <div>
-          <h2>Latest Briefings</h2>
-          <p>Deep dives into emerging technology and industry shifts.</p>
-        </div>
-        <div class="section-actions">
-          <button class="btn-filter" title="Filter">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-          </button>
-          <a href="#" class="btn-view-all">View All</a>
-        </div>
-      </div>
+      <!-- Blog Grid -->
+      <div class="blog-grid">
 
-      <div class="blog-section-gap"></div>
-
-      <!-- Main grid: 2 cards -->
-      <div class="blog-grid-main">
-
-        <article class="blog-card blog-card-hero">
-          <div class="card-img">
-            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=700&q=80" alt="React Server Components" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <div class="card-category">Web Development</div>
-            <div class="card-title">Mastering React Server Components</div>
-            <p class="card-excerpt">Next generation web rendering patterns are here. We break down the performance impact of RSC and how to restructure your architecture for speed.</p>
-            <div class="card-meta">
-              <div class="card-meta-left">
-                <img src="https://picsum.photos/seed/author1/60/60" alt="Alex Chen" />
-                <span>Alex Chen · 5 min read</span>
+        <article class="blog-card">
+          <div class="blog-img"><img src="https://picsum.photos/seed/blog-ai/600/300" alt="Top 10 Data Science Skills" loading="lazy" /></div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="blog-tag">Data Science</span><span class="blog-tag">Career</span></div>
+            <h3>Top 10 Data Science Skills Employers Want in 2025</h3>
+            <p>Explore the most in-demand skills that data science recruiters are actively looking for in candidates this year.</p>
+            <div class="blog-meta">
+              <div class="blog-author">
+                <img src="https://picsum.photos/seed/author1/60/60" alt="Priya Sharma" />
+                <span>Priya Sharma · Dec 8</span>
               </div>
-              <div class="card-arrow">→</div>
+              <a href="#" class="read-more">Read →</a>
             </div>
           </div>
         </article>
 
         <article class="blog-card">
-          <div class="card-img" style="height:175px;">
-            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=700&q=80" alt="Python Automation" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <div class="card-category">Automation</div>
-            <div class="card-title">Python for Automation in 2024</div>
-            <p class="card-excerpt">Automate repetitive tasks and build resilient scripts using Python's powerful standard library and modern tooling.</p>
-            <div class="card-meta">
-              <div class="card-meta-left">
-                <img src="https://picsum.photos/seed/author2/60/60" alt="Sarah Miller" />
-                <span>Sarah Miller · 6 min read</span>
+          <div class="blog-img"><img src="https://picsum.photos/seed/blog-web/600/300" alt="React vs Vue 2025" loading="lazy" /></div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="blog-tag">Web Dev</span><span class="blog-tag">React</span></div>
+            <h3>React vs Vue in 2025: Which Should You Learn First?</h3>
+            <p>A detailed comparison of two popular JavaScript frameworks to help beginners make the right choice for their career.</p>
+            <div class="blog-meta">
+              <div class="blog-author">
+                <img src="https://picsum.photos/seed/author2/60/60" alt="Rahul Verma" />
+                <span>Rahul Verma · Nov 29</span>
               </div>
-              <div class="card-arrow">→</div>
+              <a href="#" class="read-more">Read →</a>
             </div>
           </div>
         </article>
 
-      </div>
-
-      <!-- Secondary grid: 3 cards -->
-      <div class="blog-grid-secondary">
-
-        <article class="blog-card blog-card-sm">
-          <div class="card-img">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80" alt="Predictive Analytics" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <div class="card-category">Data Science</div>
-            <div class="card-title">Predictive Analytics Fundamentals</div>
-            <p class="card-excerpt">Build models that forecast outcomes with statistical rigor and practical tooling.</p>
-            <div class="card-meta">
-              <div class="card-meta-left">
-                <img src="https://picsum.photos/seed/author3/60/60" alt="Dr. Robert Fox" />
-                <span>Dr. Robert Fox · 15 min</span>
+        <article class="blog-card">
+          <div class="blog-img"><img src="https://picsum.photos/seed/blog-python/600/300" alt="Python Tips" loading="lazy" /></div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="blog-tag">Python</span><span class="blog-tag">Tips</span></div>
+            <h3>7 Python Tricks Every Beginner Should Know in 2025</h3>
+            <p>Practical Python tips that will make your code cleaner, faster, and more Pythonic right from day one.</p>
+            <div class="blog-meta">
+              <div class="blog-author">
+                <img src="https://picsum.photos/seed/author3/60/60" alt="Anjali Singh" />
+                <span>Anjali Singh · Nov 20</span>
               </div>
-              <div class="card-arrow">→</div>
+              <a href="#" class="read-more">Read →</a>
             </div>
           </div>
         </article>
 
-        <article class="blog-card blog-card-sm">
-          <div class="card-img">
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&q=80" alt="Kubernetes vs Serverless" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <div class="card-category">Infrastructure</div>
-            <div class="card-title">Kubernetes vs Serverless</div>
-            <p class="card-excerpt">Which deployment model wins in 2025? Cost, performance, and complexity — broken down.</p>
-            <div class="card-meta">
-              <div class="card-meta-left">
-                <img src="https://picsum.photos/seed/author4/60/60" alt="Marco Rossi" />
-                <span>Marco Rossi · 10 min</span>
+        <article class="blog-card">
+          <div class="blog-img"><img src="https://picsum.photos/seed/blog-career/600/300" alt="IT Career Tips" loading="lazy" /></div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="blog-tag">Career</span></div>
+            <h3>How to Land Your First IT Job With No Prior Experience</h3>
+            <p>Practical steps for freshers: building a portfolio, applying smart, and acing your first tech interview.</p>
+            <div class="blog-meta">
+              <div class="blog-author">
+                <img src="https://picsum.photos/seed/author4/60/60" alt="Suresh Nair" />
+                <span>Suresh Nair · Nov 12</span>
               </div>
-              <div class="card-arrow">→</div>
+              <a href="#" class="read-more">Read →</a>
             </div>
           </div>
         </article>
 
-        <article class="blog-card blog-card-sm">
-          <div class="card-img">
-            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80" alt="Future of UI" loading="lazy" />
-          </div>
-          <div class="card-body">
-            <div class="card-category">UX Design</div>
-            <div class="card-title">The Future of UI Interaction</div>
-            <p class="card-excerpt">Voice, gesture, and spatial computing are rewriting the UX playbook for the next decade.</p>
-            <div class="card-meta">
-              <div class="card-meta-left">
-                <img src="https://picsum.photos/seed/author5/60/60" alt="Lily Zhao" />
-                <span>Lily Zhao · 7 min</span>
+        <article class="blog-card">
+          <div class="blog-img"><img src="https://picsum.photos/seed/blog-sql/600/300" alt="SQL Guide" loading="lazy" /></div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="blog-tag">SQL</span><span class="blog-tag">Database</span></div>
+            <h3>SQL for Beginners: Master Queries in 30 Days</h3>
+            <p>A structured 30-day plan to learn SQL from scratch — with practice problems and real-world datasets.</p>
+            <div class="blog-meta">
+              <div class="blog-author">
+                <img src="https://picsum.photos/seed/author5/60/60" alt="Meena Gupta" />
+                <span>Meena Gupta · Nov 5</span>
               </div>
-              <div class="card-arrow">→</div>
+              <a href="#" class="read-more">Read →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-img"><img src="https://picsum.photos/seed/blog-design/600/300" alt="UI Design Trends" loading="lazy" /></div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="blog-tag">Design</span><span class="blog-tag">UI/UX</span></div>
+            <h3>UI/UX Design Trends Every Designer Must Know in 2025</h3>
+            <p>From glassmorphism to AI-assisted design — the trends reshaping how digital products look and feel.</p>
+            <div class="blog-meta">
+              <div class="blog-author">
+                <img src="https://picsum.photos/seed/author6/60/60" alt="Divya Pillai" />
+                <span>Divya Pillai · Oct 28</span>
+              </div>
+              <a href="#" class="read-more">Read →</a>
             </div>
           </div>
         </article>
@@ -689,80 +172,85 @@
       </div>
 
       <!-- Pagination -->
-      <div class="pagination">
-        <button class="page-btn">←</button>
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">3</button>
-        <button class="page-btn">12</button>
-        <button class="page-btn">→</button>
+      <div style="display:flex;justify-content:center;gap:0.5rem;margin-top:3rem;">
+        <button style="width:40px;height:40px;border-radius:8px;background:var(--cyan);color:var(--navy);border:none;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;">1</button>
+        <button style="width:40px;height:40px;border-radius:8px;background:var(--card-bg);color:var(--grey);border:1px solid var(--border);font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">2</button>
+        <button style="width:40px;height:40px;border-radius:8px;background:var(--card-bg);color:var(--grey);border:1px solid var(--border);font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">3</button>
+        <button style="width:40px;height:40px;border-radius:8px;background:var(--card-bg);color:var(--grey);border:1px solid var(--border);font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border)'">→</button>
       </div>
 
     </div>
   </section>
 
-  <!-- Spacer -->
-  <div style="height:72px; background:var(--surface);"></div>
-
-  <!-- FOOTER -->
+  <!-- Footer -->
+ <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
-
         <div class="footer-brand">
-          <a href="index.html" class="nav-logo">
-            <div class="nav-logo-icon">D</div>
-            <span class="nav-logo-text" style="margin-left:0.45rem;">DICS</span>
-          </a>
-          <p>Insightful content for the modern technologist. Join our community of 50k+ readers.</p>
+          <a href="index.html" class="nav-logo">DICS<p>Computer Education</p></a>
+          <p>Delhi's premier computer education institute, shaping the next generation of tech professionals since 2010.</p>
           <div class="social-links">
             <a href="#" class="social-link">f</a>
+            <a href="#" class="social-link">in</a>
             <a href="#" class="social-link">tw</a>
+            <a href="#" class="social-link">li</a>
+            <a href="#" class="social-link">yt</a>
           </div>
         </div>
-
         <div class="footer-col">
-          <h4>Resources</h4>
+          <h4>Quick Links</h4>
           <ul>
-            <li><a href="#">Weekly Newsletter</a></li>
-            <li><a href="#">Free E-books</a></li>
-            <li><a href="#">Case Studies</a></li>
-            <li><a href="#">Podcasts</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">All Courses</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-
         <div class="footer-col">
-          <h4>Platform</h4>
+          <h4>Our Courses</h4>
           <ul>
-            <li><a href="#">Premium Membership</a></li>
-            <li><a href="#">Job Board</a></li>
-            <li><a href="#">Referral Program</a></li>
-            <li><a href="#">For Teams</a></li>
+            <li><a href="courses.html">Data Analytics</a></li>
+            <li><a href="courses.html">Data Science</a></li>
+            <li><a href="courses.html">Web Development</a></li>
+            <li><a href="courses.html">Python Programming</a></li>
+            <li><a href="courses.html">Graphic Design</a></li>
           </ul>
         </div>
-
-        <div class="footer-col footer-newsletter">
-          <h4>Newsletter</h4>
-          <p>Stay updated with the latest in tech.</p>
-          <div class="newsletter-input-row">
-            <input type="email" class="newsletter-input" placeholder="email@example.com" />
-            <button class="btn-subscribe">SUBSCRIBE</button>
-          </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul class="footer-contact">
+            <li><span>📍</span><span>B-12, Sector 18, Connaught Place, New Delhi – 110001</span></li>
+            <li><span>📞</span><span>+91 9310267583</span></li>
+            <li><span>✉️</span><span>shubhamcodes03@gmail.com</span></li>
+          </ul>
         </div>
-
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <div class="footer-bottom-left">
-          <a href="#">PRIVACY</a>
-          <a href="#">TERMS</a>
-          <a href="#">SECURITY</a>
-        </div>
-        <span>© 2026 DICS Computer Education. Crafted for curious minds.</span>
+      <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;width:100%;">
+        <span>© 2026 DICS Computer Education. All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a></span>
       </div>
     </div>
   </footer>
+
+
+  <!-- Popup -->
+  <!-- <div class="popup-overlay hidden" id="popupOverlay" role="dialog" aria-modal="true">
+    <div class="popup-box">
+      <button class="popup-close" id="popupClose">✕</button>
+      <div class="popup-top"><span class="section-tag">🎓 Free Counselling</span><h2>Book a Free Demo Class</h2><p>Fill in your details and our counsellor will call you within 2 hours.</p></div>
+      <form id="popupForm" novalidate>
+        <div class="form-group"><label>Full Name *</label><input type="text" name="name" placeholder="Your full name" required /><span class="form-error" data-error="name"></span></div>
+        <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required /><span class="form-error" data-error="phone"></span></div>
+        <div class="form-group"><label>Email Address *</label><input type="email" name="email" placeholder="you@email.com" required /><span class="form-error" data-error="email"></span></div>
+        <div class="form-group"><label>Course Interested In *</label><select name="course" required><option value="">Select a course...</option><option>Data Analytics</option><option>Data Science</option><option>Web Development</option><option>Python Programming</option><option>Other</option></select><span class="form-error" data-error="course"></span></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.9rem;margin-top:0.5rem;">Submit Enquiry →</button>
+      </form>
+    </div>
+  </div> -->
 
   <!-- WhatsApp -->
   <a href="https://wa.me/919310267583" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
@@ -771,20 +259,6 @@
     <span>Chat with Us</span>
   </a>
 
-  <script>
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-
-    // Pagination
-    document.querySelectorAll('.page-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.textContent === '←' || btn.textContent === '→') return;
-        document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
