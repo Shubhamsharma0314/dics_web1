@@ -4,8 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog – DICS Computer Education</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta
+      name="description"
+      content="DICS offers professional computer courses in Data Science, Web Development, Python, and more. Enroll today!"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+<rect width='100' height='64' rx='12' fill='%2300d4ff'/>
+<text x='5' y='42' font-size='22' font-weight='bold' fill='%230a0f2c'>DICS</text>
+</svg>"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -23,18 +40,18 @@
 
     html { scroll-behavior: smooth; }
 
-    body {
+    /* body {
       background: var(--navy);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
-    }
+    } */
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
     /* ── NAVBAR ── */
-    .navbar {
+    /* .navbar {
       position: sticky; top: 0; z-index: 100;
       background: rgba(10,15,44,0.92);
       backdrop-filter: blur(16px);
@@ -62,16 +79,16 @@
       font-weight: 700 !important; padding: 0.45rem 1.1rem !important;
       border-radius: 8px !important;
     }
-    .btn-enroll:hover { background: var(--cyan2) !important; }
+    .btn-enroll:hover { background: var(--cyan2) !important; } */
 
-    .hamburger {
+    /* .hamburger {
       display: none; background: none; border: none; cursor: pointer;
       flex-direction: column; gap: 5px; padding: 4px;
     }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); } */
 
     /* ── PAGE HERO ── */
-    .page-hero {
+    /* .page-hero {
       position: relative; padding: 80px 0 60px; overflow: hidden;
       background: linear-gradient(135deg, #0a0f2c 0%, #0d1a40 100%);
     }
@@ -91,13 +108,15 @@
       font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 0.75rem;
     }
-    .page-hero p { font-size: 1rem; color: var(--grey); max-width: 500px; line-height: 1.7; }
+    .page-hero p { font-size: 1rem; color: var(--grey); max-width: 500px; line-height: 1.7; } */
 
     /* ── SEARCH BAR ── */
+
     .search-wrapper {
-      max-width: 560px; margin: 2rem 0 0;
-      position: relative;
-    }
+  max-width: 560px;
+  margin: 2rem auto 0;   /* center horizontally */
+  position: relative;
+}
     .search-wrapper input {
       width: 100%; background: rgba(255,255,255,0.06);
       border: 1.5px solid var(--border); border-radius: 12px;
@@ -128,8 +147,8 @@
       border-radius: 20px; cursor: pointer; transition: var(--transition);
     }
     .filter-tag:hover, .filter-tag.active {
-      border-color: var(--cyan); color: var(--cyan);
-      background: rgba(0,212,255,0.08);
+      border-color:  rgb(255, 217, 0); color: black;
+      background:rgb(255, 217, 0) ;
     }
 
     /* ── NO RESULTS ── */
@@ -163,8 +182,8 @@
     .bf-content p { color: var(--grey); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.2rem; }
     .blog-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
     .blog-tag {
-      background: rgba(0,212,255,0.1); color: var(--cyan);
-      border: 1px solid rgba(0,212,255,0.2); border-radius: 20px;
+      background: white; color: black;
+      border: 1px solid rgba(217, 255, 0, 0.2); border-radius: 20px;
       font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.7rem; letter-spacing: 0.03em;
     }
     .author-row { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--grey); }
@@ -177,10 +196,10 @@
       border: none; transition: var(--transition);
     }
     .btn-primary {
-      background: var(--cyan); color: var(--navy);
+      background: navy; color:white;
       padding: 0.65rem 1.4rem;
     }
-    .btn-primary:hover { background: var(--cyan2); }
+    /* .btn-primary:hover { background: green; color: #fff; } */
 
     /* ── BLOG GRID ── */
     .blog-grid {
@@ -387,23 +406,38 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="container nav-inner">
-      <a href="index.html" class="nav-logo">DICS<p>Computer Education</p></a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="courses.html">Courses</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="blog.html" class="active">Blog</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="contact.html" class="btn-enroll">Enroll Now</a></li>
-      </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+
+  <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="container nav-inner">
+        <!-- Logo -->
+        <a href="index.html" class="nav-logo">
+          <!-- <div class="logo-icon">DICS</div> -->
+          DICS
+          <!-- <span>Computer Education</span> -->
+        </a>
+
+        <!-- Nav Links -->
+        <ul class="nav-links" id="navLinks" role="list">
+          <li><a href="index.html" >Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="contact.html" class="btn-enroll">Enroll Now</a></li>
+        </ul>
+
+        <!-- Hamburger -->
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
 
   <!-- Page Hero -->
   <div class="page-hero">
@@ -446,14 +480,13 @@
         data-tags="Featured,AI & ML"
         data-author="Rajesh Kumar"
         data-date="Dec 15, 2024"
-        data-read="8 min read"
         data-author-img="https://picsum.photos/seed/faculty1/60/60"
-        data-img="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80"
+        data-img="https://a1ai.io/wp-content/uploads/2023/02/Screenshot_32.png"
         data-excerpt="A step-by-step guide covering everything from the basics of Python and statistics to advanced Machine Learning — with free resources and timeline."
         data-content="featured"
         onclick="openArticle(this)">
         <div class="bf-img">
-          <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80" alt="AI and Machine Learning 2025" loading="lazy" />
+          <img src="https://a1ai.io/wp-content/uploads/2023/02/Screenshot_32.png" alt="AI and Machine Learning 2025" loading="lazy"/>
         </div>
         <div class="bf-content">
           <div class="blog-tags">
@@ -466,7 +499,7 @@
             <img src="https://picsum.photos/seed/faculty1/60/60" alt="Rajesh Kumar" />
             <span>Rajesh Kumar</span>
             <span>·</span><span>Dec 15, 2024</span>
-            <span>·</span><span>8 min read</span>
+            <!-- <span>·</span><span>8 min read</span> -->
           </div>
           <button class="btn btn-primary" onclick="event.stopPropagation();openArticle(this.closest('[data-title]'))">Read Full Article →</button>
         </div>
@@ -480,13 +513,12 @@
           data-tags="Data Science,Career"
           data-author="Priya Sharma"
           data-date="Dec 8, 2024"
-          data-read="5 min read"
           data-author-img="https://picsum.photos/seed/author1/60/60"
-          data-img="https://picsum.photos/seed/blog-ai/600/300"
+          data-img="https://archieveai.com/wp-content/uploads/2024/01/datasciencetitle.png"
           data-excerpt="Explore the most in-demand skills that data science recruiters are actively looking for in candidates this year."
           data-content="ds-skills"
           onclick="openArticle(this)">
-          <div class="blog-img"><img src="https://picsum.photos/seed/blog-ai/600/300" alt="Top 10 Data Science Skills" loading="lazy" /></div>
+          <div class="blog-img"><img src="https://archieveai.com/wp-content/uploads/2024/01/datasciencetitle.png" alt="Top 10 Data Science Skills" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Data Science</span><span class="blog-tag">Career</span></div>
             <h3>Top 10 Data Science Skills Employers Want in 2025</h3>
@@ -506,13 +538,12 @@
           data-tags="Web Dev,React"
           data-author="Rahul Verma"
           data-date="Nov 29, 2024"
-          data-read="6 min read"
           data-author-img="https://picsum.photos/seed/author2/60/60"
-          data-img="https://picsum.photos/seed/blog-web/600/300"
+          data-img="https://tse4.mm.bing.net/th/id/OIP.79ONVqHGK0xUl6auAt-LnwHaDt?pid=Api&P=0&h=180"
           data-excerpt="A detailed comparison of two popular JavaScript frameworks to help beginners make the right choice for their career."
           data-content="react-vue"
           onclick="openArticle(this)">
-          <div class="blog-img"><img src="https://picsum.photos/seed/blog-web/600/300" alt="React vs Vue 2025" loading="lazy" /></div>
+          <div class="blog-img"><img src="https://tse4.mm.bing.net/th/id/OIP.79ONVqHGK0xUl6auAt-LnwHaDt?pid=Api&P=0&h=180" alt="React vs Vue 2025" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Web Dev</span><span class="blog-tag">React</span></div>
             <h3>React vs Vue in 2025: Which Should You Learn First?</h3>
@@ -532,13 +563,12 @@
           data-tags="Python,Tips"
           data-author="Anjali Singh"
           data-date="Nov 20, 2024"
-          data-read="4 min read"
           data-author-img="https://picsum.photos/seed/author3/60/60"
-          data-img="https://picsum.photos/seed/blog-python/600/300"
+          data-img="https://tse4.mm.bing.net/th/id/OIP.CbmAUDwzbbK4bveqOh-LqQHaEK?pid=Api&P=0&h=180"
           data-excerpt="Practical Python tips that will make your code cleaner, faster, and more Pythonic right from day one."
           data-content="python-tips"
           onclick="openArticle(this)">
-          <div class="blog-img"><img src="https://picsum.photos/seed/blog-python/600/300" alt="Python Tips" loading="lazy" /></div>
+          <div class="blog-img"><img src="https://tse4.mm.bing.net/th/id/OIP.CbmAUDwzbbK4bveqOh-LqQHaEK?pid=Api&P=0&h=180" alt="Python Tips" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Python</span><span class="blog-tag">Tips</span></div>
             <h3>7 Python Tricks Every Beginner Should Know in 2025</h3>
@@ -558,13 +588,12 @@
           data-tags="Career"
           data-author="Suresh Nair"
           data-date="Nov 12, 2024"
-          data-read="7 min read"
           data-author-img="https://picsum.photos/seed/author4/60/60"
-          data-img="https://picsum.photos/seed/blog-career/600/300"
+          data-img="https://static.vecteezy.com/system/resources/previews/013/775/485/original/job-hiring-concept-png.png"
           data-excerpt="Practical steps for freshers: building a portfolio, applying smart, and acing your first tech interview."
           data-content="first-job"
           onclick="openArticle(this)">
-          <div class="blog-img"><img src="https://picsum.photos/seed/blog-career/600/300" alt="IT Career Tips" loading="lazy" /></div>
+          <div class="blog-img"><img src="https://static.vecteezy.com/system/resources/previews/013/775/485/original/job-hiring-concept-png.png" alt="IT Career Tips" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Career</span></div>
             <h3>How to Land Your First IT Job With No Prior Experience</h3>
@@ -584,13 +613,12 @@
           data-tags="SQL,Database"
           data-author="Meena Gupta"
           data-date="Nov 5, 2024"
-          data-read="6 min read"
           data-author-img="https://picsum.photos/seed/author5/60/60"
-          data-img="https://picsum.photos/seed/blog-sql/600/300"
+          data-img="https://datascientest.com/wp-content/uploads/2023/07/SQL.png"
           data-excerpt="A structured 30-day plan to learn SQL from scratch — with practice problems and real-world datasets."
           data-content="sql-30"
           onclick="openArticle(this)">
-          <div class="blog-img"><img src="https://picsum.photos/seed/blog-sql/600/300" alt="SQL Guide" loading="lazy" /></div>
+          <div class="blog-img"><img src="https://datascientest.com/wp-content/uploads/2023/07/SQL.png" alt="SQL Guide" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">SQL</span><span class="blog-tag">Database</span></div>
             <h3>SQL for Beginners: Master Queries in 30 Days</h3>
@@ -610,13 +638,12 @@
           data-tags="Design,UI/UX"
           data-author="Divya Pillai"
           data-date="Oct 28, 2024"
-          data-read="5 min read"
           data-author-img="https://picsum.photos/seed/author6/60/60"
-          data-img="https://picsum.photos/seed/blog-design/600/300"
+          data-img="https://tse4.mm.bing.net/th/id/OIP.doYHfVKgVncrGIL5jmSOMgHaE8?pid=Api&P=0&h=180"
           data-excerpt="From glassmorphism to AI-assisted design — the trends reshaping how digital products look and feel."
           data-content="uiux-trends"
           onclick="openArticle(this)">
-          <div class="blog-img"><img src="https://picsum.photos/seed/blog-design/600/300" alt="UI Design Trends" loading="lazy" /></div>
+          <div class="blog-img"><img src="https://tse4.mm.bing.net/th/id/OIP.doYHfVKgVncrGIL5jmSOMgHaE8?pid=Api&P=0&h=180" alt="UI Design Trends" loading="lazy" /></div>
           <div class="blog-body">
             <div class="blog-tags"><span class="blog-tag">Design</span><span class="blog-tag">UI/UX</span></div>
             <h3>UI/UX Design Trends Every Designer Must Know in 2025</h3>
@@ -641,12 +668,12 @@
       </div>
 
       <!-- Pagination -->
-      <div class="pagination">
+      <!-- <div class="pagination">
         <button class="page-btn active">1</button>
         <button class="page-btn">2</button>
         <button class="page-btn">3</button>
         <button class="page-btn">→</button>
-      </div>
+      </div> -->
 
     </div>
   </section>
@@ -904,7 +931,6 @@
         <img src="${authorImg}" alt="${author}" />
         <span style="color:var(--text)">${author}</span>
         <span>·</span><span>${date}</span>
-        <span>·</span><span>${read}</span>
       `;
       document.getElementById('modalContent').innerHTML = articles[contentKey] || `<p>${el.dataset.excerpt}</p>`;
 
