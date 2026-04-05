@@ -69,6 +69,59 @@ h3 { font-size: 1.25rem; font-weight: 600; }
 .section-header .section-sub { margin: 0 auto; }
 section { padding: 90px 0; }
 
+/* From Uiverse.io by vinodjangid07 */ 
+.button {
+  width: 200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  gap: 10px;
+  background-color:green;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.116);
+  padding-left: 0; 
+  transition-duration: .5s;
+}
+
+.btn-center {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 100%;
+}
+
+.svgIcon {
+  height: 25px;
+  transition-duration: 1.5s;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.button:hover {
+  background-color: var(--cyan);
+  transition-duration: .5s;
+}
+
+.button:active {
+  transform: scale(0.97);
+  transition-duration: .2s;
+}
+
+.button:hover .svgIcon {
+  transform: rotate(250deg);
+  transition-duration: 1.5s;
+}
+
+
+
 /* --- Buttons --- */
 .btn {
   display: inline-flex;
