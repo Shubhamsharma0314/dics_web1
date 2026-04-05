@@ -427,3 +427,36 @@ slider.addEventListener("mouseleave", () => auto = setInterval(autoSlide, 2500))
 /* pause on mobile touch */
 slider.addEventListener("touchstart", () => clearInterval(auto));
 slider.addEventListener("touchend", () => auto = setInterval(autoSlide, 2500));
+
+
+const pslider = document.querySelector(".placement-grid");
+
+let scrollAmount = 0;
+const cardWidth = 270; // card width + gap
+const maxScroll = slider.scrollWidth - pslider.clientWidth;
+
+function autoSlide() {
+  scrollAmount += cardWidth;
+
+  if (scrollAmount > maxScroll) {
+    scrollAmount = 0; // 🔁 reset to start
+  }
+
+  slider.scrollTo({
+    left: scrollAmount,
+    behavior: "smooth"
+  });
+}
+
+// auto scroll every 2.5 sec
+let slideInterval = setInterval(autoSlide, 2500);
+
+
+// 🔥 Pause on touch (better UX)
+slider.addEventListener("touchstart", () => {
+  clearInterval(slideInterval);
+});
+
+slider.addEventListener("touchend", () => {
+  slideInterval = setInterval(autoSlide, 2500);
+});

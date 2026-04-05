@@ -658,16 +658,93 @@ border-radius:6px;
 margin-top:8px;
 }
 
+
+/* From Uiverse.io by alexmaracinaru */ 
+.pcard {
+ width: 190px;
+ height: 254px;
+ background: rgb(9, 176, 123);
+ border-radius: 15px;
+ box-shadow: 1px 5px 60px 0px #100a886b;
+}
+
+.pcard .pcard-border-top {
+ width: 60%;
+ height: 3%;
+ background: white;
+ margin: auto;
+ border-radius: 0px 0px 15px 15px;
+}
+
+.pcard span {
+ font-weight: 600;
+ color: white;
+ text-align: center;
+ display: block;
+ padding-top: 10px;
+ font-size: 16px;
+}
+
+.pcard .pjob {
+ font-weight: 400;
+ color: white;
+ display: block;
+ text-align: center;
+ padding-top: 3px;
+ font-size: 12px;
+}
+
+.pcard .pimg {
+ width: 70px;
+ height: 80px;
+ background: #6b64f3;
+ border-radius: 15px;
+ margin: auto;
+ margin-top: 25px;
+}
+
+/* .pcard .ptime {
+ padding: 8px 25px;
+ display: block;
+ margin: auto;
+ border-radius: 8px;
+ border: none;
+ margin-top: 30px;
+ background: #6b64f3;
+ color: white;
+ font-weight: 600;
+} */
+
+.pcard button:hover {
+ background: #534bf3;
+}
+
 /* Mobile */
 @media(max-width:768px){
 .placement-section{
 padding:60px 0;
 }
 
-.placement-grid{
-grid-template-columns:1fr;
+.placement-grid {
+    display: flex;                /* switch to slider */
+    overflow-x: auto;             /* enable scroll */
+    gap: 15px;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory; /* smooth snapping */
+  }
+
+  .placement-grid::-webkit-scrollbar {
+    display: none; /* hide scrollbar */
+  }
+
+  .pcard {
+    min-width: 70px;              /* one card at a time */
+    flex: 0 0 auto;
+    scroll-snap-align: center;   /* snap center */
+  }
 }
-}
+
+
 
 /* review */
 /* Section */
