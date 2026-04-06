@@ -48,6 +48,27 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; }
 h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; }
 h3 { font-size: 1.25rem; font-weight: 600; }
 
+/* ============================================================
+   LOADER
+   ============================================================ */
+#loader {
+  position: fixed; inset: 0; background: var(--ink); z-index: 9000;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 20px;
+  transition: opacity .6s var(--ease-in), visibility .6s;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+.loader-logo { font-family: var(--f-display); font-weight: 700; font-size: 48px; color: var(--paper); overflow: hidden; }
+.loader-logo span { display: inline-block; animation: loaderSlide 0.6s var(--ease-out) forwards; opacity: 0; transform: translateY(60px); }
+.loader-logo span:nth-child(1) { animation-delay: .1s; }
+.loader-logo span:nth-child(2) { color: var(--lime); animation-delay: .2s; }
+.loader-logo span:nth-child(3) { animation-delay: .3s; }
+@keyframes loaderSlide { to { opacity:1; transform:translateY(0); } }
+.loader-bar-wrap { width: 200px; height: 2px; background: rgba(255,255,255,.1); overflow: hidden; }
+.loader-bar { height: 100%; background: var(--lime); animation: barFill 1.2s var(--ease-out) forwards; }
+@keyframes barFill { from { width:0; } to { width:100%; } }
+
+
 /* --- Utility Classes --- */
 .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
 .section-tag {
