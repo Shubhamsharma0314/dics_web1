@@ -63,7 +63,7 @@
     // Always show popup after delay
     setTimeout(() => {
       overlay.classList.remove('hidden');
-    }, 1800);
+    }, 3000);
 
     // Close button
     closeBtn && closeBtn.addEventListener('click', () => {
